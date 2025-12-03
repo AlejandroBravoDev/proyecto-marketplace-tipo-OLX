@@ -12,7 +12,7 @@ const Categories = db.define("categories", {
     allowNull: false,
   },
   status: {
-    type: DataTypes.STRING,
+    type: DataTypes.JSON,
     defaultValue: "activa",
     allowNull: false,
   },
