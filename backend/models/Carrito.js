@@ -9,9 +9,8 @@ const Cart = db.define("cart", {
     primaryKey: true,
   },
   status: {
-    type: DataTypes.JSON,
+    type: DataTypes.ENUM("activo", "convertido_en_pedido"),
     allowNull: false,
-    defaultValue: "activo",
   },
   createdAt: {
     type: DataTypes.DATE,

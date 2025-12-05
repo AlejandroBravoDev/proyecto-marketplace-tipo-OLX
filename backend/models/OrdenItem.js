@@ -1,22 +1,25 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
-import database from "mime-db";
 
-const Categories = db.define("categories", {
+const OrderItem = db.define("orderitem", {
   id: {
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
     allowNull: false,
     primaryKey: true,
   },
-  name: {
-    type: DataTypes.STRING(35),
+  amount: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
-  status: {
-    type: DataTypes.ENUM("activa", "oculta"),
+  unitPrice: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  subtotal: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });
 
-export default Categories;
+export default OrderItem;

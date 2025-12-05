@@ -13,7 +13,7 @@ const Order = db.define("order", {
     allowNull: false,
   },
   status: {
-    type: DataTypes.JSON,
+    type: DataTypes.ENUM("pendiente", "pago", "enviado", "cancelado"),
     allowNull: false,
   },
   address: {
@@ -21,7 +21,7 @@ const Order = db.define("order", {
     allowNull: false,
   },
   payMethod: {
-    type: DataTypes.JSON,
+    type: DataTypes.ENUM("tarjeta", "contra_entrega", "transferencia"),
     allowNull: false,
   },
   createdAt: {
