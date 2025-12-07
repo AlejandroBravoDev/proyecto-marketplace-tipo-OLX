@@ -1,20 +1,15 @@
 import express from "express";
 import db from "./config/db.js";
+import userRoutes from "./routes/usersRoutes.js";
 import "./models/index.js";
 
 const app = express();
 app.use(express.json());
 
-const DBconnection = async () => {
-  try {
-    await db.authenticate();
-    console.log("conexion a la base de datos mela");
+app.use("/api/users", userRoutes);
 
-    await db.sync({ alter: false });
-    console.log("modelos sincronizados melo");
-  } catch (error) {
-    console.log(error);
-  }
-};
+const port = process.env.PORT;
 
-DBconnection();
+app.listen(port, () => {
+  console.log("corriendo en el puerto", port);
+});
