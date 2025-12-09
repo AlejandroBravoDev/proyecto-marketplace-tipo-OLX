@@ -1,8 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
 function Register() {
+  const navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -36,6 +38,8 @@ function Register() {
         title: "Usuario registrado ",
         icon: "success",
         text: response.data.msg,
+      }).then(() => {
+        navigate("/login");
       });
     } catch (error) {
       console.log("Error completo:", error.response?.data);
