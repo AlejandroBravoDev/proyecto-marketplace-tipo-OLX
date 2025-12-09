@@ -20,7 +20,7 @@ const Users = db.define(
       allowNull: false,
     },
     password: {
-      type: DataTypes.STRING(8),
+      type: DataTypes.STRING(155),
       allowNull: false,
     },
     role: {
@@ -28,9 +28,13 @@ const Users = db.define(
       defaultValue: "cliente",
       allowNull: false,
     },
-    cratedAt: {
+    createdAt: {
       type: DataTypes.DATE,
       defaultValue: NOW,
+    },
+    token: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   {
@@ -38,6 +42,12 @@ const Users = db.define(
       beforeCreate: async function (usuario) {
         const salt = await bcrypt.genSalt(10);
         usuario.password = await bcrypt.hash(usuario.password, salt);
+      },
+      beforeUpdate: async (user) => {
+        if (user.changed("password")) {
+          const salt = await bcrypt.genSalt(10);
+          user.password = await bcrypt.hash(user.password, salt);
+        }
       },
     },
   }
