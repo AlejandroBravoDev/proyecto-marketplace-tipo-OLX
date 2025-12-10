@@ -99,7 +99,7 @@ function ResetPassword() {
             </Link>
             <button
               type="submit"
-              className="w-25 h-9 bg-[#006e18] text-white rounded-lg  "
+              className="w-25 h-9 bg-[#3f0498 ] text-white rounded-lg  "
             >
               Envíar
             </button>

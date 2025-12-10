@@ -96,10 +96,10 @@ function ForgotPassword() {
           >
             <Link to="/login">
               <button className="w-25 h-9 bg-gray-300 rounded-lg  ">
-                Cancelar
+                Volver
               </button>
             </Link>
-            <button className="w-25 h-9 bg-[#006e18] text-white rounded-lg  ">
+            <button className="w-25 h-9 bg-[#3f0498] text-white rounded-lg  ">
               Envíar
             </button>
           </div>

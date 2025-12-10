@@ -11,19 +11,27 @@ const registerUser = async (req, res) => {
   await check("name")
     .notEmpty()
     .withMessage("El nombre no puede estár vacio")
+    .isLength({ min: 5, max: 55 })
+    .withMessage("El nombre no está en el rango de caracteres permitido")
     .run(req);
 
   await check("email")
+    .notEmpty()
+    .withMessage("Este campo no puede estar vacio")
     .isEmail()
     .withMessage("Esto no parece un correo")
     .run(req);
 
   await check("password")
+    .notEmpty()
+    .withMessage("Este campo no puede estar vacio")
     .isLength({ min: 8 })
     .withMessage("La contraseña tiene que ser de almenos 8 caracteres")
     .run(req);
 
   await check("repeatPassword")
+    .notEmpty()
+    .withMessage("Este campo no puede estar vacio")
     .custom((value) => value === password)
     .withMessage("La contraseña no es igual")
     .run(req);
@@ -93,6 +101,7 @@ const LoginUser = async (req, res) => {
         errors: resultado.array(),
       });
     }
+
     const User = await Users.findOne({ where: { email } });
 
     if (!User) {
@@ -109,12 +118,25 @@ const LoginUser = async (req, res) => {
       });
     }
 
+    const token = jwt.sign(
+      {
+        id: User.id,
+        email: User.email,
+        name: User.name,
+        role: User.role,
+      },
+      process.env.JWT_SECRET,
+      { expiresIn: "7d" }
+    );
+
     res.json({
       msg: "Inicio de sesión exitoso",
-      usuario: {
+      token,
+      user: {
         id: User.id,
         name: User.name,
         email: User.email,
+        role: User.role,
       },
     });
   } catch (error) {

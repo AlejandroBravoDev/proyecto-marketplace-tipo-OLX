@@ -31,6 +31,8 @@ function Login() {
         password: form.password,
       });
 
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.user));
       Swal.fire({
         title: "Login exitoso ",
         icon: "success",
@@ -78,7 +80,7 @@ function Login() {
         id="main-container"
       >
         <article className=" w-6/12 h-4/6 flex flex-col gap-8 max-h-full">
-          <h1 className="text-[#006e18] text-5xl font-bold">ParcheMarket</h1>
+          <h1 className="text-[#3f0498] text-5xl font-bold">ParcheMarket</h1>
           <p className="text-2xl max-w-100">
             Únete a ParcheMarket, el marketplace que te conecta con los mejores
             productos y servicios. Regístrate o inicia sesión para comprar,
@@ -121,18 +123,18 @@ function Login() {
 
           <button
             type="submit"
-            className="w-full bg-[#006e18] text-white font-semibold text-lg h-12 rounded-lg"
+            className="w-full bg-[#3f0498] text-white font-semibold text-lg h-12 rounded-lg"
           >
             Iniciar Sesión
           </button>
           <Link to="/forgotPassword">
-            <p className="text-[#00781a]">¿Olvidaste tu Contraseña?</p>
+            <p className="text-[#3f0498]">¿Olvidaste tu Contraseña?</p>
           </Link>
 
           <hr className="border-gray-400 w-full" />
 
           <Link to={"/register"} className="w-4/6">
-            <button className="w-full bg-[#00781a] text-white font-semibold  h-12 rounded-lg">
+            <button className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg">
               Crear una cuenta nueva
             </button>
           </Link>
