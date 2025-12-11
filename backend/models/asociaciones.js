@@ -12,6 +12,11 @@ import OrderItem from "./OrdenItem.js";
 Products.belongsTo(Categories, { foreignKey: "CategoryId" });
 Categories.hasMany(Products, { foreignKey: "CategoryId" });
 
+//relación usuario - categoria
+Users.hasMany(Categories, { foreignKey: "userId", as: "categories" });
+Categories.belongsTo(Users, { foreignKey: "userId", as: "users" });
+
+
 //relación producto-usuario
 Products.belongsTo(Users, { foreignKey: "UserId" });
 Users.hasMany(Products, { foreignKey: "UserId" });

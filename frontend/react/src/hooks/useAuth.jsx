@@ -15,7 +15,7 @@ export const useAuth = () => {
     if (token && userData) {
       setUser(userData);
       setIsAuthenticated(true);
-      setIsAdmin(userData.role === "admin"); // 🔥 VERIFICAR SI ES ADMIN
+      setIsAdmin(userData.role === "admin");
     }
     setLoading(false);
   }, []);

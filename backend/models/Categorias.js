@@ -14,8 +14,18 @@ const Categories = db.define("categories", {
     allowNull: false,
   },
   status: {
-    type: DataTypes.ENUM("activa", "oculta"),
+    type: DataTypes.STRING(20),
+    defaultValue: "activa",
     allowNull: false,
+  },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    onDelete: "CASCADE",
+    references: {
+      model: "Users",
+      key: "id",
+    },
   },
 });
 
