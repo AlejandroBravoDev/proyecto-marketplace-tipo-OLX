@@ -39,8 +39,8 @@ function AdminProductsCards() {
         title: "Producto eliminado",
         icon: "success",
         text: "El producto fue eliminado correctamente",
-    });
-    fetchProducts()
+      });
+      fetchProducts();
     } catch (error) {
       console.log(error);
     }
@@ -61,12 +61,43 @@ function AdminProductsCards() {
               key={pro.id}
               className=" w-80 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
             >
-              <div className="w-full h-60 bg-[#3f0498] rounded-t-lg"></div>
+              <div className="w-full h-60 rounded-t-lg overflow-hidden">
+                {pro.productImages && pro.productImages.length > 0 ? (
+                  (() => {
+                    const raw = pro.productImages[0].url;
+                    let url = null;
+                    if (Array.isArray(raw)) url = raw[0];
+                    else if (typeof raw === "string") {
+                      try {
+                        const parsed = JSON.parse(raw);
+                        if (Array.isArray(parsed)) url = parsed[0];
+                        else url = raw;
+                      } catch (e) {
+                        url = raw;
+                      }
+                    } else {
+                      url = raw;
+                    }
+
+                    return url ? (
+                      <img
+                        src={url}
+                        alt={pro.name}
+                        className="w-full h-60 object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-60 bg-[#3f0498]"></div>
+                    );
+                  })()
+                ) : (
+                  <div className="w-full h-60 bg-[#3f0498]"></div>
+                )}
+              </div>
               <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
                 <h1 className="text-xl font-semibold wrap-break-word">
                   {pro.name}
                 </h1>
-                
+
                 <p className="">
                   <span className="font-semibold">Precio: </span>
                   {pro.price}
@@ -84,7 +115,10 @@ function AdminProductsCards() {
                       Editar
                     </button>
                   </Link>
-                  <button onClick={() => deleteProduct(pro)} className="w-30  h-8 rounded-lg bg-red-500 text-white">
+                  <button
+                    onClick={() => deleteProduct(pro)}
+                    className="w-30  h-8 rounded-lg bg-red-500 text-white"
+                  >
                     Eliminar
                   </button>
                 </div>

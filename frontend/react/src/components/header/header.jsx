@@ -15,7 +15,7 @@ function Header() {
   };
   return (
     <>
-      <nav className="w-full h-20 bg-[#3f0498] flex flex-row items-center px-20 justify-between">
+      <nav className="w-full h-20 bg-[#04afb8] flex flex-row items-center px-20 justify-between">
         <Link to="/">
           <img src={logo} alt="logo ParcheMarket" className="w-15 rounded-full" />
         </Link>

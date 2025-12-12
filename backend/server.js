@@ -1,8 +1,8 @@
 import express from "express";
 import db from "./config/db.js";
 import userRoutes from "./routes/usersRoutes.js";
-import categoriesRoutes from "./routes/categoriesRoutes.js"
-import productsRoutes from "./routes/productRoutes.js"
+import categoriesRoutes from "./routes/categoriesRoutes.js";
+import productsRoutes from "./routes/productRoutes.js";
 import "./models/index.js";
 
 const app = express();
@@ -12,6 +12,9 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/products", productsRoutes);
+
+// Servir archivos estáticos de uploads
+app.use("/uploads", express.static("uploads"));
 
 // // Conectar BD y sincronizar modelos
 // const DBconnection = async () => {

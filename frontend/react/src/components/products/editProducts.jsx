@@ -1,18 +1,28 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Navigate, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { useAuth } from "../../hooks/useAuth";
 
-function EditProducts(){
-    const [form, setForm] = useState({
-        name: "",
-        description: "",
-        price: "",
-        stock: "",
-    })
+function EditProducts() {
+  const { user, isAuthenticated, isAdmin } = useAuth();
+  const navigate = useNavigate();
 
-    return(
-        <>
-        <h1>Hola soy homelo chino</h1>
-        </>
-    )
+  if (!isAdmin) {
+    navigate("/");
+  } else if (!isAuthenticated) {
+    navigate("/login");
+  }
+  const [form, setForm] = useState({
+    name: "",
+    description: "",
+    price: "",
+    stock: "",
+  });
+
+  return (
+    <>
+      <h1>Hola soy homelo chino</h1>
+    </>
+  );
 }
