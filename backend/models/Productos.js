@@ -25,7 +25,7 @@ const Products = db.define("products", {
     allowNull: false,
   },
   status: {
-    type: DataTypes.JSON,
+    type: DataTypes.STRING(20),
     defaultValue: "activo",
     allowNull: false,
   },

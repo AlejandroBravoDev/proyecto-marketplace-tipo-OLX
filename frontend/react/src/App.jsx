@@ -3,6 +3,9 @@ import Login from "./pages/auth/login";
 import Register from "./pages/auth/register";
 import ResetPassword from "./components/auth/resetPassword";
 import AdminCategories from "./pages/admin/adminCategories";
+import AdminProductsPage from "./pages/admin/adminProducts";
+import CreateProductPage from "./pages/admin/createProduct";
+import EditProductsPage from "./pages/admin/editProduct";
 import Index from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -17,6 +20,10 @@ function Rutas() {
 
       {/*rutas admin*/}
       <Route path="/adminCategories" element={<AdminCategories />} />
+      <Route path="/adminProducts" element={<AdminProductsPage/>}/>
+      <Route path="/createProducts" element={<CreateProductPage/>}/>
+      <Route path="/editProducts" element={<EditProductsPage/>}></Route>
+
     </Routes>
   );
 }

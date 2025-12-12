@@ -5,8 +5,6 @@ const createCategories = async (req, res) => {
   try {
     const { name, status } = req.body;
 
-    console.log(req.body.name);
-
     await check("name")
       .notEmpty()
       .withMessage("El nombre no puede estar vacío")
@@ -108,7 +106,7 @@ const updateCategory = async (req, res) => {
       categoria: category,
     });
   } catch (error) {
-    console.error("🔥 ERROR AL ACTUALIZAR CATEGORÍA:", error);
+    console.error("Error al actualizar la categoria:", error);
     return res.status(500).json({
       msg: "Error al actualizar la categoría",
       error: error.message,

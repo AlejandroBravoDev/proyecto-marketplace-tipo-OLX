@@ -1,9 +1,16 @@
 import express from "express";
-import { createProducts } from "../controllers/productsController.js";
-import isAdmin from "../middleware/isAdmin.js";
+import isAdmin from "../middlewares/isAdmin.js";
+import verifyToken from "../middlewares/auth.js";
+import { createProducts, deletePoduct, showAllProducts, showMyProducts, updateProduct } from "../controllers/productController.js";
 
 const router = express.Router();
 
-router.post("/products", isAdmin, createProducts);
+router.get("/active", showAllProducts);
+router.get("/", isAdmin, showMyProducts)
+
+//rutas del admin  
+router.post("/", isAdmin, createProducts)
+router.put("/:id", isAdmin, updateProduct)
+router.delete("/:id", isAdmin, deletePoduct)
 
 export default router;
