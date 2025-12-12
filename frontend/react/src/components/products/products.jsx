@@ -24,7 +24,7 @@ function ProductsCards() {
 
   return (
     <>
-      <div className="w-full flex gap-10 flex-wrap py-10 px-20">
+      <div className="w-full flex gap-10 flex-wrap py-10 px-20 grid-cols-3">
         {products.length === 0 ? (
           <>
             <p>no tienes productos</p>{" "}
@@ -36,17 +36,14 @@ function ProductsCards() {
           products.map((pro) => (
             <div
               key={pro.id}
-              className=" flex-1 flex gap-5 rounded-lg bg-white text-sm"
+              className=" w-80 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
             >
-              <div className="w-60 h-full bg-[#3f0498] rounded-l-lg"></div>
-              <div className="flex flex-col py-5 pr-5 gap-2 w-full">
+              <div className="w-full h-55 bg-[#3f0498] rounded-t-lg"></div>
+              <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
                 <h1 className="text-xl font-semibold wrap-break-word">
                   {pro.name}
                 </h1>
-                <p className="w-100 wrap-break-word">
-                  <span className="font-semibold">Descripción: </span>
-                  {pro.description}
-                </p>
+
                 <p className="">
                   <span className="font-semibold">Precio: </span>
                   {pro.price}
@@ -58,37 +55,9 @@ function ProductsCards() {
                   <span className="font-semibold">Categoria: </span>
                   {pro.category.name}
                 </p>
-                {!isAuthenticated ? (
-                  <>
-                    <Link to={"/login"}>
-                      <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
-                        Comprar
-                      </button>
-                    </Link>
-                  </>
-                ) : isAdmin ? (
-                  <>
-                    <div className="w-full flex gap-6 ">
-                      <Link to={"/editProduct"}>
-                        <button className="w-35  h-10 rounded-lg bg-[#3f0498] text-white">
-                          Editar
-                        </button>
-                      </Link>
-                      <button
-                        onClick={() => deleteProduct(pro)}
-                        className="w-35 h-10 rounded-lg bg-red-500 text-white"
-                      >
-                        Eliminar
-                      </button>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
-                      Comprar
-                    </button>
-                  </>
-                )}
+                <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
+                  Comprar
+                </button>
               </div>
             </div>
           ))

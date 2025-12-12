@@ -59,17 +59,14 @@ function AdminProductsCards() {
           products.map((pro) => (
             <div
               key={pro.id}
-              className=" flex-1 flex gap-5 rounded-lg bg-white text-sm"
+              className=" w-80 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
             >
-              <div className="w-60 h-full bg-[#3f0498] rounded-l-lg"></div>
-              <div className="flex flex-col py-5 gap-2">
+              <div className="w-full h-60 bg-[#3f0498] rounded-t-lg"></div>
+              <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
                 <h1 className="text-xl font-semibold wrap-break-word">
                   {pro.name}
                 </h1>
-                <p className="w-100 wrap-break-word">
-                  <span className="font-semibold">Descripción: </span>
-                  {pro.description}
-                </p>
+                
                 <p className="">
                   <span className="font-semibold">Precio: </span>
                   {pro.price}
