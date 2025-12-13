@@ -15,7 +15,7 @@ function Header() {
   };
   return (
     <>
-      <nav className="w-full h-20 bg-[#04afb8] flex flex-row items-center px-20 justify-between">
+      <nav className="w-full h-20 bg-[#3f0498] flex flex-row items-center px-20 justify-between">
         <Link to="/">
           <img src={logo} alt="logo ParcheMarket" className="w-15 rounded-full" />
         </Link>
@@ -24,10 +24,10 @@ function Header() {
           <div className=" flex flex-row  ">
             <input
               type="text"
-              className="bg-white h-10 rounded-l-lg w-80 px-5"
+              className="bg-white h-10 rounded-l-4xl w-80 px-5"
               placeholder="Buscar"
             />
-            <button className="bg-white h-10 rounded-r-lg pr-5">
+            <button className="bg-white h-10 rounded-r-4xl pr-5">
               <Search />
             </button>
           </div>
@@ -38,7 +38,7 @@ function Header() {
                 <Link to={"/login"}>
                   <button
                     id="login"
-                    className="w-35 h-10 border border-white rounded-lg text-white"
+                    className="w-35 h-10 border border-white rounded-4xl text-white"
                   >
                     Iniciar Sesión
                   </button>
@@ -47,7 +47,7 @@ function Header() {
                 <Link to={"/register"}>
                   <button
                     id="singin"
-                    className="w-35 h-10  rounded-lg text-[#3f0498]  bg-white"
+                    className="w-35 h-10  rounded-4xl text-[#3f0498]  bg-white"
                   >
                     Registrarse
                   </button>

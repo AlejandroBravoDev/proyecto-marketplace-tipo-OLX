@@ -45,9 +45,17 @@ function AdminProductsCards() {
       console.log(error);
     }
   };
+
+  const formatCOP = (value) => {
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0, // Quita los decimales
+    }).format(value);
+  };
   return (
     <>
-      <div className="w-full flex gap-10 flex-wrap py-10 px-20">
+      <div className="w-full flex gap-10 flex-wrap py-10 px-20 justify-center">
         {products.length === 0 ? (
           <>
             <p>no tienes productos</p>{" "}
@@ -59,7 +67,7 @@ function AdminProductsCards() {
           products.map((pro) => (
             <div
               key={pro.id}
-              className=" w-80 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
+              className=" w-90  h-120   flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
             >
               <div className="w-full h-60 rounded-t-lg overflow-hidden">
                 {pro.productImages && pro.productImages.length > 0 ? (
@@ -100,7 +108,7 @@ function AdminProductsCards() {
 
                 <p className="">
                   <span className="font-semibold">Precio: </span>
-                  {pro.price}
+                  {formatCOP(pro.price)}
                 </p>
                 <p className="">
                   <span className="font-semibold">Stock: </span> {pro.stock}
@@ -110,7 +118,7 @@ function AdminProductsCards() {
                   {pro.category.name}
                 </p>
                 <div className="w-full flex gap-6 ">
-                  <Link to={"/editProduct"}>
+                  <Link to={`/editProduct/${pro.id}`}>
                     <button className="w-30  h-8 rounded-lg bg-[#3f0498] text-white">
                       Editar
                     </button>

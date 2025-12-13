@@ -22,9 +22,16 @@ function ProductsCards() {
     fetchProducts();
   }, []);
 
+  const formatCOP = (value) => {
+    return new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0, // Quita los decimales
+    }).format(value);
+  };
   return (
     <>
-      <div className="w-full flex gap-10 flex-wrap py-10 px-20 grid-cols-3">
+      <div className="w-full flex gap-10 flex-wrap py-10 px-20 grid-cols-4 items-center justify-center">
         {products.length === 0 ? (
           <>
             <p>no tienes productos</p>{" "}
@@ -36,7 +43,7 @@ function ProductsCards() {
           products.map((pro) => (
             <div
               key={pro.id}
-              className=" w-80 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
+              className=" w-90 h-120 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
             >
               <div className="w-full h-55 rounded-t-lg overflow-hidden">
                 {pro.productImages && pro.productImages.length > 0 ? (
@@ -77,7 +84,7 @@ function ProductsCards() {
 
                 <p className="">
                   <span className="font-semibold">Precio: </span>
-                  {pro.price}
+                  {formatCOP(pro.price)}
                 </p>
                 <p className="">
                   <span className="font-semibold">Stock: </span> {pro.stock}

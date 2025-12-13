@@ -9,6 +9,7 @@ import {
   showAllProducts,
   showMyProducts,
   updateProduct,
+  getProductById
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -30,10 +31,11 @@ const upload = multer({ storage });
 
 router.get("/active", showAllProducts);
 router.get("/", isAdmin, showMyProducts);
+router.get("/:id", isAdmin, getProductById)
 
 // rutas del admin
 router.post("/", verifyToken, isAdmin, upload.array("images", 6), createProducts);
-router.put("/:id", isAdmin, updateProduct);
+router.put("/:id", isAdmin, upload.single("image"), updateProduct);
 router.delete("/:id", isAdmin, deletePoduct);
 
 export default router;

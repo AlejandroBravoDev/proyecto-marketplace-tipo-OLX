@@ -22,7 +22,7 @@ function Rutas() {
       <Route path="/adminCategories" element={<AdminCategories />} />
       <Route path="/adminProducts" element={<AdminProductsPage/>}/>
       <Route path="/createProducts" element={<CreateProductPage/>}/>
-      <Route path="/editProducts" element={<EditProductsPage/>}></Route>
+      <Route path="/editProduct/:id" element={<EditProductsPage/>}></Route>
 
     </Routes>
   );

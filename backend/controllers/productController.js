@@ -112,13 +112,27 @@ const createProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, status, price, stock } = req.body;
+    const { name, description, status, price, stock, images } = req.body;
 
     const product = await Products.findByPk(id);
 
     if (!product) {
       return res.status(404).json({ msg: "producto no encontrado" });
     }
+
+    console.log("updateProduct - body:", req.body);
+    // Actualizar campos básicos
+    await product.update({
+      name: name ?? product.name,
+      description: description ?? product.description,
+      status: status ?? product.status,
+      price: price ?? product.price,
+      stock: stock ?? product.stock,
+      images: images ?? product.images,
+      CategoryId: req.body.CategoryId ?? product.CategoryId,
+    });
+
+    return res.status(200).json({ msg: "Producto actualizado correctamente" , product});
   } catch (error) {
     console.log("Error al actualizar el producto", error);
     return res.status(500).json({
@@ -219,10 +233,24 @@ const showAllProducts = async (req, res) => {
   }
 };
 
+const getProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Products.findByPk(id)
+
+    return res.status(200).json({
+      product,
+    })
+  } catch (error) {
+    
+  }
+}
+
 export {
   createProducts,
   updateProduct,
   deletePoduct,
   showMyProducts,
   showAllProducts,
+  getProductById
 };

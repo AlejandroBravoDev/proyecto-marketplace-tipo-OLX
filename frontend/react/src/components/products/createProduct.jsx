@@ -317,7 +317,7 @@ function CreateProduct() {
           )}
           <button className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg">
             Crear producto
-          </button>{" "}
+          </button>
         </form>
       </div>
     </div>
