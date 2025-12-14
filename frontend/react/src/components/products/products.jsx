@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-function ProductsCards({products}) {
+function ProductsCards({ products }) {
   const { isAdmin } = useAuth();
 
   const formatCOP = (value) => {
@@ -90,9 +90,11 @@ function ProductsCards({products}) {
                   <span className="font-semibold">Categoria: </span>
                   {pro.category.name}
                 </p>
-                <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
-                  Comprar
-                </button>
+                <Link to={`/purchaseProduct/${pro.id}`}>
+                  <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
+                    Comprar
+                  </button>
+                </Link>
               </div>
             </div>
           ))

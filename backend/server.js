@@ -3,8 +3,8 @@ import db from "./config/db.js";
 import userRoutes from "./routes/usersRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
 import productsRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 import "./models/index.js";
-
 
 const app = express();
 app.use(express.json());
@@ -13,6 +13,7 @@ app.use("/api/users", userRoutes);
 
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/products", productsRoutes);
+app.use("/api/cart", cartRoutes);
 
 // Servir archivos estáticos de uploads
 app.use("/uploads", express.static("uploads"));

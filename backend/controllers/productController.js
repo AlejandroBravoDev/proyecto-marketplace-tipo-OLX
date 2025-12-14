@@ -311,6 +311,8 @@ const getProductByCategory = async (req, res) => {
     console.log(error);
   }
 };
+
+
 export {
   createProducts,
   updateProduct,
