@@ -79,17 +79,17 @@ function Header() {
                   ¡Bienvenido! {user?.name}
                 </h2>
                 <Link to={"/panelAdmin"}>
-                  <button className="w-50 h-10  rounded-lg  text-sky-600 bg-white ">
+                  <button className="w-50 h-10  rounded-4xl  text-sky-600 bg-white ">
                     Panel Administrativo
                   </button>
                 </Link>
                 <Link to={"/perfil"}>
-                  <button className="w-35 h-10  rounded-lg text-white border border-white">
+                  <button className="w-35 h-10  rounded-4xl text-white border border-white">
                     Perfil
                   </button>
                 </Link>
                 <button
-                  className="w-35 h-10  rounded-lg text-white  bg-red-600"
+                  className="w-35 h-10  rounded-4xl text-white  bg-red-600"
                   onClick={handleLogout}
                 >
                   Cerrar Sesión
@@ -104,13 +104,13 @@ function Header() {
                   ¡Bienvenido! {user?.name}
                 </h2>
                 <Link to={"/perfil"}>
-                  <button className="w-35 h-10  rounded-lg text-sky-600  bg-white">
+                  <button className="w-35 h-10  rounded-4xl text-sky-600  bg-white">
                     Perfil
                   </button>
                 </Link>
 
                 <button
-                  className="w-35 h-10  rounded-lg text-white  bg-red-600"
+                  className="w-35 h-10  rounded-4xl text-white  bg-red-600"
                   onClick={handleLogout}
                 >
                   Cerrar Sesión

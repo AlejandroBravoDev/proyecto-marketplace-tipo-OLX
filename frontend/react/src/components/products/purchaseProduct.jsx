@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useNavigate, Link, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function PurchaseProduct() {
   const { id } = useParams();
   const [product, setProduct] = useState();
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState(1);  
+  const [open, setOpen] = useState(false)
 
   const [form, setForm] = useState({
     name: "",
@@ -64,7 +66,10 @@ function PurchaseProduct() {
         }
       );
 
-      alert("Producto agregado al carrito");
+      Swal.fire({
+        title: "Producto agregado al carrito",
+        icon: "success"
+      })
     } catch (error) {
       alert(error.response?.data?.msg || "Error al agregar al carrito");
     }

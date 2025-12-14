@@ -4,6 +4,7 @@ import userRoutes from "./routes/usersRoutes.js";
 import categoriesRoutes from "./routes/categoriesRoutes.js";
 import productsRoutes from "./routes/productRoutes.js";
 import cartRoutes from "./routes/cartRoutes.js";
+import orderRoutes from "./routes/ordersRoutes.js";
 import "./models/index.js";
 
 const app = express();
@@ -14,11 +15,12 @@ app.use("/api/users", userRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 // Servir archivos estáticos de uploads
 app.use("/uploads", express.static("uploads"));
 
-// // Conectar BD y sincronizar modelos
+// Conectar BD y sincronizar modelos
 // const DBconnection = async () => {
 //   try {
 //     await db.authenticate();

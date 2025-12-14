@@ -68,7 +68,7 @@ function AdminProductsCards() {
             
             <div
               key={pro.id}
-              className=" w-90  h-120   flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
+              className=" w-90  h-120   flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] animate-fade-in animate-duration-400"
             >
               <div className="w-full h-60 rounded-t-lg overflow-hidden">
                 {pro.productImages && pro.productImages.length > 0 ? (

@@ -16,7 +16,6 @@ Categories.hasMany(Products, { foreignKey: "CategoryId" });
 Users.hasMany(Categories, { foreignKey: "userId", as: "categories" });
 Categories.belongsTo(Users, { foreignKey: "userId", as: "users" });
 
-
 //relación producto-usuario
 Products.belongsTo(Users, { foreignKey: "UserId" });
 Users.hasMany(Products, { foreignKey: "UserId" });
@@ -30,8 +29,9 @@ Cart.belongsTo(Users, { foreignKey: "UserId" });
 Users.hasOne(Cart, { foreignKey: "UserId" });
 
 //relación itemCarrito-carrito
-ItemCart.belongsTo(Cart, { foreignKey: "CartId" });
-Cart.hasMany(ItemCart, { foreignKey: "CartId" });
+// relación itemCarrito-carrito
+ItemCart.belongsTo(Cart, { foreignKey: "CartId", as: "cart" });
+Cart.hasMany(ItemCart, { foreignKey: "CartId", as: "items" });
 
 //relación itemCarrito-producto
 ItemCart.belongsTo(Products, { foreignKey: "ProductId" });
@@ -46,7 +46,7 @@ OrderItem.belongsTo(Order, { foreignKey: "OrderId", as: "pedido" });
 Order.hasMany(OrderItem, { foreignKey: "OrderId", as: "items" });
 
 //relación producto-item
-OrderItem.belongsTo(Products, { foreignKey: "PoductId", as: "product" });
+OrderItem.belongsTo(Products, { foreignKey: "ProductId", as: "product" });
 Products.hasMany(OrderItem, { foreignKey: "ProductId", as: "items" });
 
 export {

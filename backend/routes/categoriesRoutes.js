@@ -8,7 +8,7 @@ import {
 } from "../controllers/categoriesController.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import verifyToken from "../middlewares/auth.js";
-
+  
 const router = express.Router();
 
 router.get("/active", showActiveCategories);

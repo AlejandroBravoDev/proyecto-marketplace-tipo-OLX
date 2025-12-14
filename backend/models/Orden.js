@@ -8,6 +8,11 @@ const Order = db.define("order", {
     allowNull: false,
     primaryKey: true,
   },
+
+  name:{
+    type: DataTypes.STRING(155),
+    allowNull: false,
+  },
   total: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -19,6 +24,10 @@ const Order = db.define("order", {
   address: {
     type: DataTypes.STRING(255),
     allowNull: false,
+  },
+  phoneNumber:{
+    type:DataTypes.INTEGER(55),
+    allowNull:false
   },
   payMethod: {
     type: DataTypes.ENUM("tarjeta", "contra_entrega", "transferencia"),

@@ -4,17 +4,23 @@ import Products from "../models/Productos.js";
 
 const addToCart = async (req, res) => {
   try {
+    //verifica que el usuario esté autenticado
     const userId = req.user?.id;
     if (!userId) return res.status(401).json({ msg: "No autenticado" });
 
+    //trae la id del producto y la cantidad de productos
     const { productId, amount = 1 } = req.body;
+
+    //si la id no existe retorna error
     if (!productId)
       return res.status(400).json({ msg: "productId es requerido" });
 
+    //si existe la busca en la tabla productos
     const product = await Products.findByPk(productId);
     if (!product)
       return res.status(404).json({ msg: "Producto no encontrado" });
 
+    //si el usuario intenta comprar más de lo que hay en stock retorna error
     if (product.stock < amount) {
       return res.status(400).json({ msg: "Stock insuficiente" });
     }
@@ -60,9 +66,15 @@ const getCart = async (req, res) => {
     const cart = await Cart.findOne({
       where: { UserId: userId, status: "activo" },
     });
-    if (!cart) return res.status(200).json({ items: [], total: 0 });
 
-    // obtener items con producto
+    if (!cart) {
+      return res.status(200).json({
+        items: [],
+        total: 0,
+        totalAmount: 0,
+      });
+    }
+
     const items = await ItemCart.findAll({
       where: { CartId: cart.id },
       include: [
@@ -73,24 +85,30 @@ const getCart = async (req, res) => {
       ],
     });
 
-    // mapear y calcular subtotales
     const mapped = items.map((it) => {
       const product =
         it.product || it.Product || it.Products || it.dataValues.Product;
+
       const unitPrice = it.unitPrice;
       const subtotal = unitPrice * it.amount;
+
       return {
         id: it.id,
         amount: it.amount,
         unitPrice,
         subtotal,
-        product: product || null,
+        product,
       };
     });
 
     const total = mapped.reduce((s, it) => s + it.subtotal, 0);
+    const totalAmount = mapped.reduce((s, it) => s + it.amount, 0);
 
-    return res.status(200).json({ items: mapped, total });
+    return res.status(200).json({
+      items: mapped,
+      total,
+      totalAmount,
+    });
   } catch (error) {
     console.error("getCart error:", error);
     return res

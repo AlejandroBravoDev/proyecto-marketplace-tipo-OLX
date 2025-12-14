@@ -10,7 +10,7 @@ import Index from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PanelAdminPage from "./pages/admin/panel";
 import PurchaseProductPage from "./pages/purchase/purchaseProduct";
-
+import CartPage from "./pages/cart/cart";
 function Rutas() {
   return (
     <Routes>
@@ -20,6 +20,7 @@ function Rutas() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/resetPassword/:token" element={<ResetPassword />} />
       <Route path="/purchaseProduct/:id" element={<PurchaseProductPage/>}/>
+      <Route path="/cart/:id" element={<CartPage/>}/>
 
       {/*rutas admin*/}
       <Route path="/adminCategories" element={<AdminCategories />} />
