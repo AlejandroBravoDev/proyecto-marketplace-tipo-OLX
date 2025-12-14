@@ -17,6 +17,6 @@ router.get("/", verifyToken, showAllCategories);
 
 router.post("/", isAdmin, createCategories);
 router.put("/:id", isAdmin, updateCategory);
-router.delete("/:id", isAdmin, deleteCategory);
+router.delete("/:id", isAdmin, deleteCategory); 
 
 export default router;

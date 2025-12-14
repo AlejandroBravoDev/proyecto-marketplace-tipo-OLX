@@ -8,6 +8,7 @@ import CreateProductPage from "./pages/admin/createProduct";
 import EditProductsPage from "./pages/admin/editProduct";
 import Index from "./pages";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import PanelAdminPage from "./pages/admin/panel";
 
 function Rutas() {
   return (
@@ -22,7 +23,8 @@ function Rutas() {
       <Route path="/adminCategories" element={<AdminCategories />} />
       <Route path="/adminProducts" element={<AdminProductsPage/>}/>
       <Route path="/createProducts" element={<CreateProductPage/>}/>
-      <Route path="/editProduct/:id" element={<EditProductsPage/>}></Route>
+      <Route path="/editProduct/:id" element={<EditProductsPage/>}/>
+      <Route path="/panelAdmin" element={<PanelAdminPage/>}/>
 
     </Routes>
   );

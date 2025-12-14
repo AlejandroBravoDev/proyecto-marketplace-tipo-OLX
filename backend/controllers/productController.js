@@ -2,6 +2,7 @@ import { check, validationResult } from "express-validator";
 import Products from "../models/Productos.js";
 import Categories from "../models/Categorias.js";
 import Images from "../models/ImagenProducto.js";
+import { Op } from "sequelize";
 
 const createProducts = async (req, res) => {
   const { name, description, price, stock, status, CategoryId } = req.body;
@@ -112,33 +113,45 @@ const createProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, description, status, price, stock, images } = req.body;
+    const { name, description, status, price, stock, CategoryId } = req.body;
 
     const product = await Products.findByPk(id);
-
     if (!product) {
       return res.status(404).json({ msg: "producto no encontrado" });
     }
 
-    console.log("updateProduct - body:", req.body);
-    // Actualizar campos básicos
     await product.update({
-      name: name ?? product.name,
-      description: description ?? product.description,
-      status: status ?? product.status,
-      price: price ?? product.price,
-      stock: stock ?? product.stock,
-      images: images ?? product.images,
-      CategoryId: req.body.CategoryId ?? product.CategoryId,
+      name,
+      description,
+      status,
+      price,
+      stock,
+      CategoryId,
     });
 
-    return res.status(200).json({ msg: "Producto actualizado correctamente" , product});
+    if (req.file) {
+      const imageUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+
+      // actualizar tabla Images
+      await Images.update({ isMain: false }, { where: { ProductId: id } });
+
+      await Images.create({
+        ProductId: id,
+        url: imageUrl,
+        isMain: true,
+      });
+
+      await product.update({
+        images: imageUrl,
+      });
+    }
+
+    return res.status(200).json({
+      msg: "Producto actualizado correctamente",
+    });
   } catch (error) {
     console.log("Error al actualizar el producto", error);
-    return res.status(500).json({
-      msg: "Error al crear el producto",
-      error: error.message,
-    });
+    return res.status(500).json({ msg: "Error al actualizar el producto" });
   }
 };
 
@@ -185,6 +198,7 @@ const showMyProducts = async (req, res) => {
           model: Images,
           as: "productImages",
           attributes: ["id", "url", "isMain"],
+          order: [["isMain", "DESC"]],
         },
       ],
     });
@@ -205,8 +219,76 @@ const showMyProducts = async (req, res) => {
 
 const showAllProducts = async (req, res) => {
   try {
+    const { category, search } = req.query;
+
+    console.log("showAllProducts - query:", req.query);
+
+    const where = {
+      status: "activo",
+    };
+
+    if (category) {
+      where.CategoryId = category;
+    }
+
+    if (search) {
+      // Buscar por nombre o descripción
+      where[Op.or] = [
+        { name: { [Op.like]: `%${search}%` } },
+        { description: { [Op.like]: `%${search}%` } },
+      ];
+    }
+
     const products = await Products.findAll({
-      where: { status: "activo" },
+      where,
+      include: [
+        {
+          model: Categories,
+          as: "category",
+          attributes: ["id", "name"],
+        },
+        {
+          model: Images,
+          as: "productImages",
+          attributes: ["id", "url", "isMain"],
+        },
+      ],
+    });
+    console.log("showAllProducts - found:", products.length);
+
+    return res.status(200).json({
+      products,
+      total: products.length,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      msg: "Error al obtener los productos",
+      error: error.message,
+    });
+  }
+};
+
+const getProductById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const product = await Products.findByPk(id);
+
+    return res.status(200).json({
+      product,
+    });
+  } catch (error) {}
+};
+
+const getProductByCategory = async (req, res) => {
+  try {
+    console.log("QUERY PARAMS:", req.query);
+
+    const { CategoryId } = req.params;
+
+    console.log("categoria", CategoryId);
+
+    const product = await Products.findAll({
+      where: { CategoryId: CategoryId },
       include: [
         {
           model: Categories,
@@ -222,35 +304,19 @@ const showAllProducts = async (req, res) => {
     });
 
     return res.status(200).json({
-      products,
-      total: products.length,
+      msg: "mostrando todos los productos",
+      product,
     });
   } catch (error) {
-    return res.status(500).json({
-      msg: "Error al obtener las productas",
-      error: error.message,
-    });
+    console.log(error);
   }
 };
-
-const getProductById = async (req, res) => {
-  const { id } = req.params;
-  try {
-    const product = await Products.findByPk(id)
-
-    return res.status(200).json({
-      product,
-    })
-  } catch (error) {
-    
-  }
-}
-
 export {
   createProducts,
   updateProduct,
   deletePoduct,
   showMyProducts,
   showAllProducts,
-  getProductById
+  getProductById,
+  getProductByCategory,
 };

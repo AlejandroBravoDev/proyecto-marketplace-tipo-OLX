@@ -124,7 +124,7 @@ const deleteCategory = async (req, res) => {
       return res.status(404).json({ msg: "Categoría no encontrada" });
     }
 
-      await category.destroy();
+    await category.destroy();
 
     return res.status(200).json({
       msg: "Categoría desactivada correctamente",
@@ -137,6 +137,7 @@ const deleteCategory = async (req, res) => {
     });
   }
 };
+
 
 export {
   createCategories,

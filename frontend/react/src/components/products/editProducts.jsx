@@ -22,7 +22,7 @@ function EditProducts() {
     price: "",
     stock: "",
     status: "",
-    images: ""
+    images: "",
   });
 
   const handleChange = (e) => {
@@ -36,41 +36,35 @@ function EditProducts() {
 
   const updateProduct = async (e) => {
     e.preventDefault();
+
     try {
       const token = localStorage.getItem("token");
 
-      const response = await axios.put(`/api/products/${id}`, form, {
+      const formData = new FormData();
+      formData.append("name", form.name);
+      formData.append("description", form.description);
+      formData.append("price", form.price);
+      formData.append("stock", form.stock);
+      formData.append("status", form.status);
+      formData.append("CategoryId", form.CategoryId);
+
+      if (files.length > 0) {
+        formData.append("images", files[0]);
+      }
+
+      await axios.put(`/api/products/${id}`, formData, {
         headers: {
           Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
         },
       });
 
       Swal.fire({
         title: "Producto editado correctamente",
         icon: "success",
-      }).then(() => {
-        navigate("/adminProducts")
-      });
-      setErrors({});
+      }).then(() => navigate("/adminProducts"));
     } catch (error) {
-      console.log(
-        "Error al editar el producto: ",
-        error.response?.data || error
-      );
-      // Manejo de errores de validación
-      if (error.response?.data?.errors) {
-        const formatted = {};
-        error.response.data.errors.forEach((err) => {
-          const key = err.param || err.path || "_general";
-          formatted[key] = err.msg;
-        });
-        setErrors(formatted);
-      } else if (error.response?.data?.msg) {
-        // mensaje general
-        setErrors({ _general: error.response.data.msg });
-      } else {
-        setErrors({ _general: "Error al editar el producto" });
-      }
+      console.log("Error al editar el producto:", error);
     }
   };
 
@@ -96,7 +90,6 @@ function EditProducts() {
     setPreviewUrls([data.images]);
 
     setProduct(response.data.product);
-    console.log(response.data.product);
   };
 
   useEffect(() => {
@@ -200,7 +193,9 @@ function EditProducts() {
                         alt={form.name}
                         className="w-40 h-40 object-cover rounded-lg shadow-sm"
                       />
-                      <span className="absolute top-1 left-1 bg-white text-xs px-2 py-0.5 rounded">Imagen principal</span>
+                      <span className="absolute top-1 left-1 bg-white text-xs px-2 py-0.5 rounded">
+                        Imagen principal
+                      </span>
                     </div>
                   </div>
                 ) : (
@@ -302,7 +297,7 @@ function EditProducts() {
               onChange={handleChange}
               className="bg-white border border-gray-400 text-gray-500 h-10 w-full rounded-lg px-5"
             >
-              <option value="">categoria</option>
+              <option value={form.CategoryId}>no camia</option>
               {categories.length === 0 ? (
                 <option value="">No hay categorias</option>
               ) : (
@@ -319,7 +314,21 @@ function EditProducts() {
             {errors._general && (
               <p className="text-red-500 text-sm mt-2">{errors._general}</p>
             )}
-            <button type="submit" className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg">
+
+            <select
+              name="status"
+              id=""
+              onChange={handleChange}
+              className="bg-white border border-gray-400 text-gray-500 h-10 w-full rounded-lg px-5"
+            >
+              <option value="">{form.status}</option>
+              <option value="inactivo">Inactivo</option>
+              <option value="activo">Activo</option>
+            </select>
+            <button
+              type="submit"
+              className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg"
+            >
               Confirmar edición
             </button>
           </form>

@@ -65,6 +65,7 @@ function AdminProductsCards() {
           </>
         ) : (
           products.map((pro) => (
+            
             <div
               key={pro.id}
               className=" w-90  h-120   flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
@@ -89,7 +90,7 @@ function AdminProductsCards() {
 
                     return url ? (
                       <img
-                        src={url}
+                        src={pro.images}
                         alt={pro.name}
                         className="w-full h-60 object-cover"
                       />

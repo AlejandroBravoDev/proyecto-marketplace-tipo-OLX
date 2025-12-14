@@ -3,10 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { logout } from "../../services/authService";
 import { Search } from "lucide-react";
-
+import { useState } from "react";
 function Header() {
   const { user, isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const [search, setSearch] = useState();
 
   const handleLogout = () => {
     logout();
@@ -15,9 +16,13 @@ function Header() {
   };
   return (
     <>
-      <nav className="w-full h-20 bg-[#3f0498] flex flex-row items-center px-20 justify-between">
+      <nav className="w-full h-20 bg-[#3f0498] flex flex-row items-center px-20 justify-between animate-slide-in-top animate-duration-400">
         <Link to="/">
-          <img src={logo} alt="logo ParcheMarket" className="w-15 rounded-full" />
+          <img
+            src={logo}
+            alt="logo ParcheMarket"
+            className="w-15 rounded-full"
+          />
         </Link>
         {/*si el usuario no está registrado*/}
         <div className="flex flex-row gap-10">
@@ -26,8 +31,20 @@ function Header() {
               type="text"
               className="bg-white h-10 rounded-l-4xl w-80 px-5"
               placeholder="Buscar"
+              onChange={(e) => setSearch(e.target.value)}
             />
-            <button className="bg-white h-10 rounded-r-4xl pr-5">
+            <button
+              className="bg-white h-10 rounded-r-4xl pr-5"
+              onClick={() => {
+                if (!search.trim()) return;
+                navigate(`/?search=${encodeURIComponent(search)}`);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && search.trim()) {
+                  navigate(`/?search=${encodeURIComponent(search)}`);
+                }
+              }}
+            >
               <Search />
             </button>
           </div>

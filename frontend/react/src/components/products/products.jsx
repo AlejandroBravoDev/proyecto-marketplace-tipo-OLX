@@ -5,22 +5,8 @@ import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 
-function ProductsCards() {
-  const { user, isAuthenticated, isAdmin } = useAuth();
-  const [products, setProducts] = useState([]);
-
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get("/api/products/active");
-      setProducts(response.data.products);
-    } catch (error) {
-      console.log("error", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
+function ProductsCards({products}) {
+  const { isAdmin } = useAuth();
 
   const formatCOP = (value) => {
     return new Intl.NumberFormat("es-CO", {
@@ -31,19 +17,30 @@ function ProductsCards() {
   };
   return (
     <>
-      <div className="w-full flex gap-10 flex-wrap py-10 px-20 grid-cols-4 items-center justify-center">
+      <div className="w-full flex gap-10 flex-wrap py-10 px-20 grid-cols-4 items-center justify-center animate-fade-in animate-duration-400">
+        {isAdmin ? (
+          <>
+            <Link to={"/createProducts"}>
+              <div className=" w-90 h-120 flex flex-col justify-center items-center gap-5 border-2 border-[#3f0498] border-dashed rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] hover:scale-102  transition-transform duration-300">
+                <div className="w-full h-full bg-[#04429817] flex flex-col justify-center items-center gap-5">
+                  <h1 className="font-bold text-6xl">+</h1>
+                  <h1 className="font-semibold text-2xl">Crear un Producto</h1>
+                </div>
+              </div>
+            </Link>
+          </>
+        ) : (
+          <></>
+        )}
         {products.length === 0 ? (
           <>
-            <p>no tienes productos</p>{" "}
-            <Link to={"/"}>
-              <h1>Crear</h1>
-            </Link>{" "}
+            <p>No hay productos disponibles</p>
           </>
         ) : (
           products.map((pro) => (
             <div
               key={pro.id}
-              className=" w-90 h-120 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] "
+              className=" w-90 h-120 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)]  hover:scale-102  transition-transform duration-300"
             >
               <div className="w-full h-55 rounded-t-lg overflow-hidden">
                 {pro.productImages && pro.productImages.length > 0 ? (
@@ -65,7 +62,7 @@ function ProductsCards() {
 
                     return url ? (
                       <img
-                        src={url}
+                        src={pro.images}
                         alt={pro.name}
                         className="w-full h-55 object-cover"
                       />

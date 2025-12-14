@@ -9,7 +9,8 @@ import {
   showAllProducts,
   showMyProducts,
   updateProduct,
-  getProductById
+  getProductById,
+  getProductByCategory
 } from "../controllers/productController.js";
 
 const router = express.Router();
@@ -33,9 +34,13 @@ router.get("/active", showAllProducts);
 router.get("/", isAdmin, showMyProducts);
 router.get("/:id", isAdmin, getProductById)
 
+//ruta para que funcione el filtro por categorias
+router.get("/category/:categoryId", getProductByCategory);
+
 // rutas del admin
 router.post("/", verifyToken, isAdmin, upload.array("images", 6), createProducts);
-router.put("/:id", isAdmin, upload.single("image"), updateProduct);
+router.put("/:id", isAdmin, upload.single("images"), updateProduct);
 router.delete("/:id", isAdmin, deletePoduct);
+
 
 export default router;

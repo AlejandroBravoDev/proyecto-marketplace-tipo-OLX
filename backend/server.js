@@ -5,6 +5,7 @@ import categoriesRoutes from "./routes/categoriesRoutes.js";
 import productsRoutes from "./routes/productRoutes.js";
 import "./models/index.js";
 
+
 const app = express();
 app.use(express.json());
 
