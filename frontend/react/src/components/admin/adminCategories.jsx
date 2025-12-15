@@ -148,7 +148,7 @@ function AdminCategories() {
       {/*container principal*/}
       <main className="w-full px-20 py-15 flex flex-row justify-between">
         {/*mis categorias*/}
-        <div className="w-210 h-full flex flex-col gap-5 justify-center p-12 rounded-lg bg-white">
+        <div className="w-210 h-full flex flex-col gap-5 justify-center p-12 rounded-lg bg-white animate-slide-in-left animate-duration-400">
           <h1 className="text-xl font-semibold ">Mis categorias</h1>
           <div className="w-full h-full ">
             <ul className="w-full flex flex-col gap-8">
@@ -170,9 +170,6 @@ function AdminCategories() {
                         <option value="activa">Activa</option>
                         <option value="inactive">Inactiva</option>
                       </select>
-                      <button className="text-white bg-gray-400 w-30 h-8 rounded-lg">
-                        Cambiar
-                      </button>
                       <button
                         className="text-white bg-red-500 w-30 h-8 rounded-lg"
                         onClick={() => deleteCategory(cat.id)}
@@ -188,7 +185,7 @@ function AdminCategories() {
         </div>
 
         {/*input y botón para crear la categoria*/}
-        <div className="w-120 h-full p-10 flex flex-col gap-5 justify-center bg-white rounded-lg">
+        <div className="w-120 h-full p-10 flex flex-col gap-5 justify-center bg-white rounded-lg animate-slide-in-right animate-duration-400">
           {/*input container*/}
           <h1 className="text-xl font-semibold">Crear categoria</h1>
           <form
@@ -207,7 +204,7 @@ function AdminCategories() {
             )}
             <button
               type="submit"
-              className="text-white bg-[#3f0498] w-full 5 h-10 rounded-lg"
+              className="text-white bg-sky-600 w-full 5 h-10 rounded-lg"
             >
               Crear categoria
             </button>

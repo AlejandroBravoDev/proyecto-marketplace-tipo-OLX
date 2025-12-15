@@ -1,3 +1,3 @@
 # proyecto-marketplace-tipo-OLX
 
-#hola soy alejojoj
+##comando para insertar datos de usuarios: node seed/seeder.js -i

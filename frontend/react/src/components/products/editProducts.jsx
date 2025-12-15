@@ -145,7 +145,7 @@ function EditProducts() {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#3f0498]"></div>
+                  <div className="w-full h-full bg-sky-600"></div>
                 )}
               </div>
 
@@ -167,7 +167,7 @@ function EditProducts() {
                   {form.stock}
                 </p>
 
-                <button className="w-full font-semibold text-sm  h-10 rounded-lg bg-[#3f0498] text-white">
+                <button className="w-full font-semibold text-sm  h-10 rounded-lg bg-sky-600 text-white">
                   Ver info
                 </button>
               </div>
@@ -327,7 +327,7 @@ function EditProducts() {
             </select>
             <button
               type="submit"
-              className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg"
+              className="w-full bg-sky-600 text-white font-semibold  h-12 rounded-lg"
             >
               Confirmar edición
             </button>

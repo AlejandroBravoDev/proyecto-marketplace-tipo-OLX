@@ -54,7 +54,7 @@ function Cart() {
       <div className="w-full h-full py-15 px-30 text-center">
         <h1 className="text-3xl font-semibold">Carrito de compras </h1>
         <main className="w-full flex gap-20 p-20 rounded-lg">
-          <article className="w-4/6 h-full flex flex-col gap-5 bg-white rounded-lg p-5">
+          <article className="w-4/6 h-full flex flex-col gap-5 bg-white rounded-lg p-5 animate-slide-in-left animate-duration-400">
             <h1 className="text-xl font-semibold">Mis Productos</h1>
             <div className="w-132 flex justify-evenly gap-10 px-5  font-semibold">
               <h2>Imagen</h2>
@@ -88,7 +88,7 @@ function Cart() {
               </div>
             ))}
           </article>
-          <div className="w-4/12 h-50 bg-white rounded-lg p-5 flex flex-col gap-10 ">
+          <div className="w-4/12 h-50 bg-white rounded-lg p-5 flex flex-col gap-10  animate-slide-in-right animate-duration-400">
             <h1 className="text-xl font-semibold">Confirmar Compra</h1>
             <div className="text-lg  h-full flex flex-col gap-5">
               <p>

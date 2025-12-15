@@ -80,7 +80,7 @@ function MyOrders() {
   return (
     <main className="w-full py-15 px-20">
       {/* CARDS CONTAINER */}
-      <div className="w-full p-10 flex flex-col gap-10 bg-white rounded-lg">
+      <div className="w-full p-10 flex flex-col gap-10 bg-white rounded-lg animate-fade-in animate-duration-400">
         {orders.length === 0 ? (
           <p>No has hecho ningún pedido</p>
         ) : (

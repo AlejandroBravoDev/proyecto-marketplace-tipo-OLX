@@ -21,7 +21,7 @@ function ProductsCards({ products }) {
         {isAdmin ? (
           <>
             <Link to={"/createProducts"}>
-              <div className=" w-90 h-120 flex flex-col justify-center items-center gap-5 border-2 border-[#3f0498] border-dashed rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] hover:scale-102  transition-transform duration-300">
+              <div className=" w-90 h-120 flex flex-col justify-center items-center gap-5 border-2 border-sky-600 border-dashed rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] hover:scale-102  transition-transform duration-300">
                 <div className="w-full h-full bg-[#04429817] flex flex-col justify-center items-center gap-5">
                   <h1 className="font-bold text-6xl">+</h1>
                   <h1 className="font-semibold text-2xl">Crear un Producto</h1>
@@ -67,11 +67,11 @@ function ProductsCards({ products }) {
                         className="w-full h-55 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-55 bg-[#3f0498]"></div>
+                      <div className="w-full h-55 bg-sky-600 border-sky-600"></div>
                     );
                   })()
                 ) : (
-                  <div className="w-full h-55 bg-[#3f0498]"></div>
+                  <div className="w-full h-55 bg-sky-600 border-sky-600"></div>
                 )}
               </div>
               <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
@@ -91,7 +91,7 @@ function ProductsCards({ products }) {
                   {pro.category.name}
                 </p>
                 <Link to={`/purchaseProduct/${pro.id}`}>
-                  <button className="w-full  h-10 rounded-lg bg-[#3f0498] text-white">
+                  <button className="w-full  h-10 rounded-lg bg-sky-600 border-sky-600 text-white">
                     Comprar
                   </button>
                 </Link>

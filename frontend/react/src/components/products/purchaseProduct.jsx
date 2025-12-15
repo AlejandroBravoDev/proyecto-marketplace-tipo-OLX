@@ -85,9 +85,9 @@ function PurchaseProduct() {
   return (
     <>
       <div className="w-full h-full py-15 px-20">
-        <main className="w-full h-full p-10 flex flex-row gap-10 bg-white rounded-lg">
+        <main className="w-full h-full p-10 flex flex-row gap-10 bg-white rounded-lg animate-fade-in animate-duration-400">
           {/*imagen y comentarios del producto*/}
-          <div className="w-4/6 h-full flex flex-row gap-10">
+          <div className="w-4/6 h-full flex flex-row gap-10 ">
             <img
               src={form.images}
               className="w-65 rounded-lg"

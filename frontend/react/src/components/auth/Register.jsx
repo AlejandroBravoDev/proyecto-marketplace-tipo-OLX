@@ -70,7 +70,7 @@ function Register() {
         id="main-container"
         className="w-full h-full px-120 py-30 flex flex-col gap-5 text-center"
       >
-        <h1 className="text-[#3f0498] text-5xl font-bold">ParcheMarket</h1>
+        <h1 className="text-sky-600 text-5xl font-bold">ParcheMarket</h1>
         <form
           action="post"
           className="w-full h-full p-5 py-8 flex flex-col gap-5 items-center bg-white rounded-lg"
@@ -144,7 +144,7 @@ function Register() {
 
           <button
             type="submit"
-            className="w-6/12 mt-10 bg-[#3f0498] text-white font-semibold text-lg h-12 rounded-lg"
+            className="w-6/12 mt-10 bg-sky-600 text-white font-semibold text-lg h-12 rounded-lg"
           >
             Registrate
           </button>

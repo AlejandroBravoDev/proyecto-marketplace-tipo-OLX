@@ -31,7 +31,7 @@ function CategoriesNav({onSelectCategory}) {
 
   return (
     <>
-      <nav className="w-full h-15 bg-[#3f0498] mt-10 animate-slide-in-top animate-duration-400 ">
+      <nav className="w-full h-15 bg-sky-600 mt-10 animate-slide-in-top animate-duration-400 ">
         <ul className="w-full h-full flex flex-row justify-between items-center px-20 text-white">
           <Link to="/">
           <li>ver todos </li>
@@ -45,17 +45,7 @@ function CategoriesNav({onSelectCategory}) {
               </li>
             ))
           )}
-          {isAdmin ? (
-            <>
-              <Link to="/adminCategories">
-                <button className="w-35 h-10  rounded-lg text-[#3f0498]  bg-white">
-                  Crear categoria
-                </button>
-              </Link>
-            </>
-          ) : (
-            <></>
-          )}
+          
         </ul>
       </nav>
     </>

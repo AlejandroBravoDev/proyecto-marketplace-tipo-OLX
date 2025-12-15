@@ -99,7 +99,7 @@ function ForgotPassword() {
                 Volver
               </button>
             </Link>
-            <button className="w-25 h-9 bg-[#3f0498] text-white rounded-lg  ">
+            <button className="w-25 h-9 bg-sky-600 text-white rounded-lg  ">
               Envíar
             </button>
           </div>

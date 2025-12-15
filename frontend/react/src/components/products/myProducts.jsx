@@ -68,9 +68,9 @@ function AdminProductsCards() {
             
             <div
               key={pro.id}
-              className=" w-90  h-120   flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] animate-fade-in animate-duration-400"
+              className=" w-90  h-120 hover:scale-103 transition-transform duration-300  flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] animate-fade-in animate-duration-400"
             >
-              <div className="w-full h-60 rounded-t-lg overflow-hidden">
+              <div className="w-full h-60 rounded-t-lg overflow-hidden ">
                 {pro.productImages && pro.productImages.length > 0 ? (
                   (() => {
                     const raw = pro.productImages[0].url;
@@ -95,11 +95,11 @@ function AdminProductsCards() {
                         className="w-full h-60 object-cover"
                       />
                     ) : (
-                      <div className="w-full h-60 bg-[#3f0498]"></div>
+                      <div className="w-full h-60 bg-sky-600"></div>
                     );
                   })()
                 ) : (
-                  <div className="w-full h-60 bg-[#3f0498]"></div>
+                  <div className="w-full h-60 bg-sky-600"></div>
                 )}
               </div>
               <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
@@ -120,7 +120,7 @@ function AdminProductsCards() {
                 </p>
                 <div className="w-full flex gap-6 ">
                   <Link to={`/editProduct/${pro.id}`}>
-                    <button className="w-30  h-8 rounded-lg bg-[#3f0498] text-white">
+                    <button className="w-30  h-8 rounded-lg bg-sky-600 text-white">
                       Editar
                     </button>
                   </Link>

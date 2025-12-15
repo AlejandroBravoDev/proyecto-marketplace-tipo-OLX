@@ -171,7 +171,7 @@ function CreateProduct() {
                   className="w-full h-full object-cover"
                 />
               ) : (
-                <div className="w-full h-full bg-[#3f0498]"></div>
+                <div className="w-full h-full bg-sky-600"></div>
               )}
             </div>
 
@@ -193,7 +193,7 @@ function CreateProduct() {
                 {form.stock}
               </p>
 
-              <button className="w-full font-semibold text-sm  h-10 rounded-lg bg-[#3f0498] text-white">
+              <button className="w-full font-semibold text-sm  h-10 rounded-lg bg-sky-600 text-white">
                 Ver info
               </button>
             </div>
@@ -329,7 +329,7 @@ function CreateProduct() {
           {errors.CategoryId && (
             <p className="text-red-500 text-sm mt-1">{errors.CategoryId}</p>
           )}
-          <button className="w-full bg-[#3f0498] text-white font-semibold  h-12 rounded-lg">
+          <button className="w-full bg-sky-600 text-white font-semibold  h-12 rounded-lg">
             Crear producto
           </button>
         </form>

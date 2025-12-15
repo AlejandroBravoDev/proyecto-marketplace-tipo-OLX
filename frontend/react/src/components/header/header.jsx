@@ -14,15 +14,18 @@ function Header() {
     navigate("/login");
     window.location.reload;
   };
+
+  const handleSelectChange = (e) => {
+    const ruta = e.target.value;
+    if (ruta) {
+      navigate(ruta);
+    }
+  };
   return (
     <>
       <nav className="w-full h-20 bg-sky-600 flex flex-row items-center px-20 justify-between animate-slide-in-top animate-duration-400">
         <Link to="/">
-          <img
-            src={logo}
-            alt="logo ParcheMarket"
-            className="w-15 rounded-full"
-          />
+          <h2 className="text-2xl font-bold text-white">Parche <span className="text-[#1d007c]">Market</span></h2>
         </Link>
         {/*si el usuario no está registrado*/}
         <div className="flex flex-row gap-10">
@@ -76,18 +79,14 @@ function Header() {
               {/*botones*/}
               <div className="flex flex-row gap-10 items-center">
                 <h2 className="font-semibold text-white">
-                  ¡Bienvenido! {user?.name}
+                  ¡Bienvenido! <span className="text-[#1d007c]">{user?.name}</span>
                 </h2>
-                <Link to={"/panelAdmin"}>
-                  <button className="w-50 h-10  rounded-4xl  text-sky-600 bg-white ">
-                    Panel Administrativo
-                  </button>
-                </Link>
-                <Link to={"/perfil"}>
-                  <button className="w-35 h-10  rounded-4xl text-white border border-white">
-                    Perfil
-                  </button>
-                </Link>
+                <select name="" id="" onChange={handleSelectChange} className="text-white bg-sky-600 rounded-4xl border border-white h-10 w-40 px-5">
+                  <option value="/">admin</option>
+                  <option value="/adminProducts">Productos</option>
+                  <option value="/adminCategories">Categorias</option>
+                  <option value="/myOrders">Ordenes</option>
+                </select>
                 <button
                   className="w-35 h-10  rounded-4xl text-white  bg-red-600"
                   onClick={handleLogout}
