@@ -202,6 +202,9 @@ function AdminCategories() {
               placeholder="Nombre de la categoria"
               className="bg-white w-full h-10 px-5 rounded-lg"
             />
+            {errors.name && (
+              <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+            )}
             <button
               type="submit"
               className="text-white bg-[#3f0498] w-full 5 h-10 rounded-lg"

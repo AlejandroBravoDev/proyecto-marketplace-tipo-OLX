@@ -11,6 +11,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PanelAdminPage from "./pages/admin/panel";
 import PurchaseProductPage from "./pages/purchase/purchaseProduct";
 import CartPage from "./pages/cart/cart";
+import MyOrdersPage from "./pages/orders/myOrders";
 function Rutas() {
   return (
     <Routes>
@@ -21,6 +22,8 @@ function Rutas() {
       <Route path="/resetPassword/:token" element={<ResetPassword />} />
       <Route path="/purchaseProduct/:id" element={<PurchaseProductPage/>}/>
       <Route path="/cart/:id" element={<CartPage/>}/>
+      <Route path="/myOrders" element={<MyOrdersPage/>}/>
+
 
       {/*rutas admin*/}
       <Route path="/adminCategories" element={<AdminCategories />} />

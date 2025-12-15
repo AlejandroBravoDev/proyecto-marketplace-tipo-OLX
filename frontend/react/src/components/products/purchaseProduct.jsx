@@ -129,10 +129,6 @@ function PurchaseProduct() {
             >
               Agregar al carrito
             </button>
-
-            <button className="w-full h-10  bg-sky-600 rounded-2xl text-white">
-              Comprar ya
-            </button>
           </div>
         </main>
       </div>

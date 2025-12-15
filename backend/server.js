@@ -12,7 +12,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 
-app.use("/api/categories", categoriesRoutes);
+app.use ("/api/categories", categoriesRoutes);
 app.use("/api/products", productsRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);

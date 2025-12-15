@@ -11,7 +11,7 @@ function Cart() {
   const fetchCart = async () => {
     const token = localStorage.getItem("token");
 
-    const response = await axios.get("/api/cart", {
+    const response = await axios.get("/api/cart/", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -20,6 +20,21 @@ function Cart() {
     setTotal(response.data.total);
     setTotalAmount(response.data.totalAmount);
     console.log(response.data);
+  };
+
+  const deleteProductFromCart = async (itemId) => {
+    try {
+      const token = localStorage.getItem("token");
+      await axios.delete(`/api/cart/${itemId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      fetchCart();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -62,7 +77,12 @@ function Cart() {
                 <p>{item.amount}</p>
                 <p>{formatCOP(item.unitPrice)}</p>
                 <p>{formatCOP(item.subtotal)}</p>
-                <button className="w-25 h-10 bg-red-600 text-white rounded-2xl">
+
+                {/* BOTON ELIMINAR */}
+                <button
+                  onClick={() => deleteProductFromCart(item.id)}
+                  className="w-25 h-10 bg-red-600 text-white rounded-2xl"
+                >
                   Eliminar
                 </button>
               </div>

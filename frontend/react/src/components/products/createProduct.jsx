@@ -8,10 +8,10 @@ function CreateProduct() {
   const { user, isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
 
-  if(!isAdmin){
-    navigate("/")
-  }else if (!isAuthenticated){
-    navigate("/login")
+  if (!isAdmin) {
+    navigate("/");
+  } else if (!isAuthenticated) {
+    navigate("/login");
   }
   const [form, setForm] = useState({
     name: "",
@@ -24,10 +24,10 @@ function CreateProduct() {
   const [files, setFiles] = useState([]);
   const [previewUrls, setPreviewUrls] = useState([]);
 
-  const [errors, setErrors] = useState({});
   const [products, setproducts] = useState([]);
   const [categories, setCategories] = useState([]);
-
+  
+  const [errors, setErrors] = useState({});
   const handleChange = (e) => {
     setForm({
       ...form,
@@ -69,27 +69,41 @@ function CreateProduct() {
     } catch (error) {
       console.log("Error response:", error.response?.data);
 
-      if (error.response?.data?.errors) {
-        const formatted = {};
-        error.response.data.errors.forEach((err) => {
-          // express-validator may return `param` or `path`
-          const key = err.param || err.path || "_general";
-          formatted[key] = err.msg;
-        });
-        setErrors(formatted);
-      } else if (error.response?.data?.msg) {
+      const responseErrors = error.response?.data;
+
+      if (responseErrors) {
+        
+        if (error.response.status === 400 && responseErrors.errors) {
+          const newErrors = {};
+          responseErrors.errors.forEach((err) => {
+            newErrors[err.path] = err.msg;
+          });
+          setErrors(newErrors);
+
+          Swal.fire({
+            icon: "error",
+            title: "Error de Validación",
+            text: "Revisa los campos del formulario.",
+          });
+        }
+       
+        else if (responseErrors.msg) {
+          Swal.fire({
+            icon: "warning",
+            title: "Error",
+            text: responseErrors.msg, 
+          });
+        }
+      }
+      else {
         Swal.fire({
-          title: "Error",
           icon: "error",
-          text: error.response.data.msg,
-        });
-      } else {
-        Swal.fire({
-          title: "Error",
-          icon: "error",
-          text: "Error al crear producto",
+          title: "Error en el servidor",
+          text: "Ocurrió un error inesperado. Intenta de nuevo.",
         });
       }
+    } finally {
+      setLoading(false);
     }
   };
 

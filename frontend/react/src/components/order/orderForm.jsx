@@ -9,11 +9,14 @@ function OrderForm({ close }) {
     payMethod: "",
   });
 
+  const [errors, setErrors] = useState({});
   const handleChange = (e) => {
     setForm({
       ...form,
       [e.target.name]: e.target.value,
     });
+
+    setErrors({ ...errors, [e.target.name]: null });
   };
 
   const handleSubmit = async (e) => {
@@ -31,8 +34,39 @@ function OrderForm({ close }) {
       alert("Pedido creado");
       close();
     } catch (error) {
-      console.error(error);
-      alert("Error al crear pedido");
+      console.log("Error response:", error.response?.data);
+
+      const responseErrors = error.response?.data;
+
+      if (responseErrors) {
+        if (error.response.status === 400 && responseErrors.errors) {
+          const newErrors = {};
+          responseErrors.errors.forEach((err) => {
+            newErrors[err.path] = err.msg;
+          });
+          setErrors(newErrors);
+
+          Swal.fire({
+            icon: "error",
+            title: "Error de Validación",
+            text: "Revisa los campos del formulario.",
+          });
+        } else if (responseErrors.msg) {
+          Swal.fire({
+            icon: "warning",
+            title: "Error",
+            text: responseErrors.msg,
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error en el servidor",
+          text: "Ocurrió un error inesperado. Intenta de nuevo.",
+        });
+      }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -49,6 +83,9 @@ function OrderForm({ close }) {
         required
         className="w-full border border-gray-300 p-2 rounded-xl "
       />
+      {errors.name && (
+        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+      )}
 
       <input
         name="phoneNumber"
@@ -56,7 +93,9 @@ function OrderForm({ close }) {
         onChange={handleChange}
         className="w-full border border-gray-300 p-2 rounded-xl "
       />
-
+         {errors.phoneNumber && (
+            <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>
+          )}
       <input
         name="address"
         placeholder="Dirección"
@@ -64,6 +103,9 @@ function OrderForm({ close }) {
         required
         className="w-full border border-gray-300 p-2 rounded-xl "
       />
+      {errors.adress && (
+            <p className="text-red-500 text-sm mt-1">{errors.adress}</p>
+          )}
 
       <select
         name="payMethod"
@@ -76,6 +118,9 @@ function OrderForm({ close }) {
         <option value="tarjeta">Tarjeta</option>
         <option value="transferencia">Transferencia</option>
       </select>
+      {errors.payMethod && (
+            <p className="text-red-500 text-sm mt-1">{errors.payMethod}</p>
+          )}
 
       <button className="w-full bg-black text-white py-2 rounded">
         Confirmar compra

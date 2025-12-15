@@ -10,12 +10,12 @@ import {
   showMyProducts,
   updateProduct,
   getProductById,
-  getProductByCategory
+  getProductByCategory, // 💡 Asumiendo estas validaciones existen en productController.js // createProductValidations, // updateProductValidations, // deleteProductValidations,
 } from "../controllers/productController.js";
 
 const router = express.Router();
 
-// configurar multer
+// configurar multer (sin cambios)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, path.join(process.cwd(), "uploads")),
   filename: (req, file, cb) => {
@@ -31,16 +31,27 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 router.get("/active", showAllProducts);
-router.get("/", isAdmin, showMyProducts);
-router.get("/:id", isAdmin, getProductById)
+router.get("/", verifyToken, isAdmin, showMyProducts);
+router.get("/:id", verifyToken, getProductById);
 
-//ruta para que funcione el filtro por categorias
 router.get("/category/:categoryId", getProductByCategory);
 
 // rutas del admin
-router.post("/", verifyToken, isAdmin, upload.array("images", 6), createProducts);
-router.put("/:id", isAdmin, upload.single("images"), updateProduct);
-router.delete("/:id", isAdmin, deletePoduct);
 
+// ⚠️ Ejemplo de aplicación de validación y middleware de subida
+// router.post("/", verifyToken, isAdmin, upload.array("images", 6), createProductValidations, createProducts);
+router.post(
+  "/",
+  verifyToken,
+  isAdmin,
+  upload.array("images", 6),
+  createProducts
+);
+
+// router.put("/:id", verifyToken, isAdmin, upload.single("images"), updateProductValidations, updateProduct);
+router.put("/:id", isAdmin, upload.single("images"), updateProduct);
+
+// router.delete("/:id", verifyToken, isAdmin, deleteProductValidations, deletePoduct);
+router.delete("/:id", isAdmin, deletePoduct);
 
 export default router;

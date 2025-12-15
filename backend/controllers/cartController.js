@@ -117,4 +117,53 @@ const getCart = async (req, res) => {
   }
 };
 
-export { addToCart, getCart };
+const deleteProductFromCart = async (req, res) => {
+  try {
+    // usuario autenticado
+    const userId = req.user?.id;
+    if (!userId) return res.status(401).json({ msg: "No autenticado" });
+
+    // id del item del carrito
+    const { itemId } = req.params;
+
+    if (!itemId) {
+      return res.status(400).json({ msg: "itemId es requerido" });
+    }
+
+    // buscar carrito activo del usuario
+    const cart = await Cart.findOne({
+      where: { UserId: userId, status: "activo" },
+    });
+
+    if (!cart) {
+      return res.status(404).json({ msg: "Carrito no encontrado" });
+    }
+
+    // buscar el item dentro del carrito
+    const item = await ItemCart.findOne({
+      where: {
+        id: itemId,
+        CartId: cart.id,
+      },
+    });
+
+    if (!item) {
+      return res
+        .status(404)
+        .json({ msg: "Producto no encontrado en el carrito" });
+    }
+
+    // eliminar item
+    await item.destroy();
+
+    return res.status(200).json({ msg: "Producto eliminado del carrito" });
+  } catch (error) {
+    console.error("deleteProductFromCart error:", error);
+    return res.status(500).json({
+      msg: "Error eliminando producto del carrito",
+      error: error.message,
+    });
+  }
+};
+
+export { addToCart, getCart, deleteProductFromCart };
