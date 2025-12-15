@@ -71,62 +71,83 @@ function OrderForm({ close }) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-      <h2 className="text-xl text-sky-600 font-semibold ">
-        Datos del comprador
-      </h2>
+  <form onSubmit={handleSubmit} className="flex flex-col gap-5 sm:gap-6 md:gap-8">
+    <h2 className="text-lg sm:text-xl font-semibold text-sky-600">
+      Datos del comprador
+    </h2>
 
+    <div className="w-full">
       <input
         name="name"
         placeholder="Nombre completo"
         onChange={handleChange}
         required
-        className="w-full border border-gray-300 p-2 rounded-xl "
+        className="w-full border border-gray-300 p-3 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
       {errors.name && (
-        <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+        <p className="text-red-500 text-xs sm:text-sm mt-2">{errors.name}</p>
       )}
+    </div>
 
+    <div className="w-full">
       <input
         name="phoneNumber"
+        type="tel"
         placeholder="Teléfono"
         onChange={handleChange}
-        className="w-full border border-gray-300 p-2 rounded-xl "
+        required
+        className="w-full border border-gray-300 p-3 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
-         {errors.phoneNumber && (
-            <p className="text-red-500 text-sm mt-1">{errors.phoneNumber}</p>
-          )}
+      {errors.phoneNumber && (
+        <p className="text-red-500 text-xs sm:text-sm mt-2">
+          {errors.phoneNumber}
+        </p>
+      )}
+    </div>
+
+    <div className="w-full">
       <input
         name="address"
         placeholder="Dirección"
         onChange={handleChange}
         required
-        className="w-full border border-gray-300 p-2 rounded-xl "
+        className="w-full border border-gray-300 p-3 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500"
       />
-      {errors.adress && (
-            <p className="text-red-500 text-sm mt-1">{errors.adress}</p>
-          )}
+      {errors.address && (
+        <p className="text-red-500 text-xs sm:text-sm mt-2">
+          {errors.address}
+        </p>
+      )}
+    </div>
 
+    <div className="w-full">
       <select
         name="payMethod"
-        id=""
         onChange={handleChange}
         value={form.payMethod}
+        required
+        className="w-full border border-gray-300 p-3 rounded-xl text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500 bg-white"
       >
-        <option value="">selecciona metodo de pago</option>
+        <option value="">Selecciona método de pago</option>
         <option value="contra_entrega">Contra entrega</option>
         <option value="tarjeta">Tarjeta</option>
         <option value="transferencia">Transferencia</option>
       </select>
       {errors.payMethod && (
-            <p className="text-red-500 text-sm mt-1">{errors.payMethod}</p>
-          )}
+        <p className="text-red-500 text-xs sm:text-sm mt-2">
+          {errors.payMethod}
+        </p>
+      )}
+    </div>
 
-      <button className="w-full bg-black text-white py-2 rounded">
-        Confirmar compra
-      </button>
-    </form>
-  );
+    <button
+      type="submit"
+      className="w-full bg-sky-600 text-white py-3 sm:py-3.5 rounded-xl font-semibold text-sm sm:text-base hover:bg-sky-700 transition-colors mt-2 sm:mt-4"
+    >
+      Confirmar compra
+    </button>
+  </form>
+);
 }
 
 export default OrderForm;

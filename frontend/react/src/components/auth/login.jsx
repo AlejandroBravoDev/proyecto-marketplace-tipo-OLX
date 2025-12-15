@@ -76,12 +76,14 @@ function Login() {
     <>
       {/*div que va a hacer el padding para que se vea más al centro*/}
       <div
-        className="w-full h-210 flex flex-row gap-10 py-40 px-70 "
+        className="w-full min-h-screen flex flex-col lg:flex-row gap-6 lg:gap-10 py-8 sm:py-12 md:py-20 lg:py-40 px-4 sm:px-8 md:px-16 lg:px-70 items-center lg:items-start"
         id="main-container"
       >
-        <article className=" w-6/12 h-4/6 flex flex-col gap-8 max-h-full">
-          <h1 className="text-sky-600 text-5xl font-bold">ParcheMarket</h1>
-          <p className="text-2xl max-w-100">
+        <article className="w-full lg:w-6/12 flex flex-col gap-4 sm:gap-6 md:gap-8 text-center lg:text-left">
+          <h1 className="text-sky-600 text-3xl sm:text-4xl md:text-5xl font-bold">
+            ParcheMarket
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-full lg:max-w-100 mx-auto lg:mx-0">
             Únete a ParcheMarket, el marketplace que te conecta con los mejores
             productos y servicios. Regístrate o inicia sesión para comprar,
             vender y acceder a ofertas exclusivas. ¡Es rápido, seguro y está
@@ -91,50 +93,56 @@ function Login() {
 
         <form
           action="post"
-          className="w-105 h-95 bg-white shadow-xl rounded-2xl flex flex-col gap-5 p-5 text-center items-center"
+          className="w-full sm:w-96 md:w-105 bg-white shadow-xl rounded-2xl flex flex-col gap-4 sm:gap-5 p-5 sm:p-6 md:p-8 text-center items-center"
           onSubmit={handleSubmit}
         >
           <input
             type="text"
-            placeholder="Correo Electronico"
+            placeholder="Correo Electrónico"
             name="email"
-            className={`w-full border border-gray-400 h-12 rounded-lg p-4 ${
-              errors.password ? "border-red-500" : "border-gray-400"
+            className={`w-full border h-11 sm:h-12 rounded-lg p-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500 ${
+              errors.email ? "border-red-500" : "border-gray-400"
             }`}
             onChange={handleChange}
           />
 
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            <p className="text-red-500 text-xs sm:text-sm -mt-2 w-full text-left">
+              {errors.email}
+            </p>
           )}
 
           <input
             type="password"
             placeholder="Contraseña"
             name="password"
-            className={`w-full border border-gray-400 h-12 rounded-lg p-4 ${
+            className={`w-full border h-11 sm:h-12 rounded-lg p-4 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500 ${
               errors.password ? "border-red-500" : "border-gray-400"
             }`}
             onChange={handleChange}
           />
           {errors.password && (
-            <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            <p className="text-red-500 text-xs sm:text-sm -mt-2 w-full text-left">
+              {errors.password}
+            </p>
           )}
 
           <button
             type="submit"
-            className="w-full bg-sky-600 text-white font-semibold text-lg h-12 rounded-lg"
+            className="w-full bg-sky-600 text-white font-semibold text-base sm:text-lg h-11 sm:h-12 rounded-lg hover:bg-sky-700 transition-colors"
           >
             Iniciar Sesión
           </button>
           <Link to="/forgotPassword">
-            <p className="text-sky-600">¿Olvidaste tu Contraseña?</p>
+            <p className="text-sky-600 text-sm sm:text-base hover:underline">
+              ¿Olvidaste tu Contraseña?
+            </p>
           </Link>
 
           <hr className="border-gray-400 w-full" />
 
-          <Link to={"/register"} className="w-4/6">
-            <button className="w-full bg-sky-600  text-white font-semibold  h-12 rounded-lg">
+          <Link to={"/register"} className="w-full sm:w-4/6">
+            <button className="w-full bg-sky-600 text-white font-semibold text-base sm:text-lg h-11 sm:h-12 rounded-lg hover:bg-sky-700 transition-colors">
               Crear una cuenta nueva
             </button>
           </Link>

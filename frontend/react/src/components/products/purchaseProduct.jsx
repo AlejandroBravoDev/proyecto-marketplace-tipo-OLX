@@ -83,57 +83,117 @@ function PurchaseProduct() {
     }).format(value);
   };
   return (
-    <>
-      <div className="w-full h-full py-15 px-20">
-        <main className="w-full h-full p-10 flex flex-row gap-10 bg-white rounded-lg animate-fade-in animate-duration-400">
-          {/*imagen y comentarios del producto*/}
-          <div className="w-4/6 h-full flex flex-row gap-10 ">
+  <>
+    <div className="w-full min-h-screen py-6 sm:py-10 md:py-15 px-4 sm:px-8 md:px-12 lg:px-20">
+      <main className="w-full bg-white p-4 sm:p-6 md:p-10 flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-10 rounded-lg animate-fade-in animate-duration-400">
+        
+        {/* Imagen y descripción del producto */}
+        <div className="w-full lg:w-4/6 flex flex-col md:flex-row gap-6 sm:gap-8 md:gap-10">
+          {/* Imagen */}
+          <div className="w-full md:w-auto shrink-0">
             <img
               src={form.images}
-              className="w-65 rounded-lg"
-              alt="imagen del producto"
+              className="w-full md:w-65 lg:w-70 xl:w-80 rounded-lg object-cover shadow-md"
+              alt={form.name || "imagen del producto"}
             />
-
-            <div className="flex flex-col gap-5 py-10 justify-center">
-              <h1 className="text-2xl font-semibold">{form.name}</h1>
-              <p className="text-3xl font-medium text-sky-600">
-                {formatCOP(form.price)}
-              </p>
-              <p className="text-lg ">{form.description}</p>
-              <p>{form.categoryId}</p>
-            </div>
           </div>
 
-          {/*info de stock y botón para agregar al carrito */}
-          <div className="w-4/12 h-full p-10 rounded-lg border border-gray-300 flex flex-col gap-5 text-lg">
-            <p className="text-lg flex  gap-2 text-sky-700">
-              <span className="text-xl ">Stock disponible </span>
-              {form.stock}
+          {/* Información del producto */}
+          <div className="flex flex-col gap-3 sm:gap-4 md:gap-5 py-0 md:py-6 lg:py-10 justify-start md:justify-center flex-1">
+            <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold wrap-break-word">
+              {form.name}
+            </h1>
+            <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-sky-600">
+              {formatCOP(form.price)}
             </p>
+            <div className="flex flex-col gap-2">
+              <p className="text-sm sm:text-base md:text-lg text-gray-700 wrap-break-word">
+                {form.description}
+              </p>
+              {form.categoryId && (
+                <p className="text-sm text-gray-500">
+                  <span className="font-semibold">Categoría:</span> {form.categoryId}
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Panel de compra */}
+        <div className="w-full lg:w-4/12 p-5 sm:p-6 md:p-8 lg:p-10 rounded-lg border-2 border-gray-300 flex flex-col gap-4 sm:gap-5 text-base sm:text-lg lg:sticky lg:top-20 self-start">
+          {/* Stock disponible */}
+          <div className="flex flex-col gap-2">
+            <p className="text-base sm:text-lg flex items-center gap-2">
+              <span className="font-semibold text-gray-700">Stock disponible:</span>
+              <span className={`font-bold text-xl ${form.stock > 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {form.stock}
+              </span>
+            </p>
+            {form.stock === 0 && (
+              <p className="text-sm text-red-600 font-medium">
+                Producto agotado
+              </p>
+            )}
+          </div>
+
+          {/* Input de cantidad */}
+          <div className="flex flex-col gap-2">
+            <label htmlFor="amount" className="text-sm font-semibold text-gray-700">
+              Cantidad
+            </label>
             <input
+              id="amount"
               type="number"
               name="amount"
               min={1}
               value={amount}
-              onChange={(e) =>
-                setAmount(Math.min(form.stock, Number(e.target.value)))
-              }
+              onChange={(e) => {
+                const value = Math.max(1, Math.min(form.stock, Number(e.target.value)));
+                setAmount(value);
+              }}
               max={form.stock}
-              placeholder={`cantidad (solo hay ${form.stock} disponibles)`}
-              className="w-full h-10 rounded-2xl pl-5 border border-sky-600 focus:border-sky-600"
+              disabled={form.stock === 0}
+              placeholder={form.stock > 0 ? `Máximo ${form.stock}` : 'Sin stock'}
+              className="w-full h-11 sm:h-12 rounded-lg px-4 border-2 border-sky-600 focus:outline-none focus:ring-2 focus:ring-sky-500 disabled:bg-gray-100 disabled:cursor-not-allowed text-sm sm:text-base"
             />
-
-            <button
-              onClick={handleAddToCart}
-              className="w-full h-10 border border-sky-600 bg-[#E3EDFB] rounded-2xl text-sky-600"
-            >
-              Agregar al carrito
-            </button>
+            {form.stock > 0 && form.stock <= 5 && (
+              <p className="text-xs sm:text-sm text-orange-600">
+                ¡Solo quedan {form.stock} unidades!
+              </p>
+            )}
           </div>
-        </main>
-      </div>
-    </>
-  );
+
+          {/* Botón agregar al carrito */}
+          <button
+            onClick={handleAddToCart}
+            disabled={form.stock === 0}
+            className="w-full h-11 sm:h-12 border-2 border-sky-600 bg-sky-50 hover:bg-sky-100 rounded-lg text-sky-600 font-semibold transition-colors disabled:bg-gray-100 disabled:border-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed text-sm sm:text-base"
+          >
+            {form.stock > 0 ? 'Agregar al carrito' : 'Producto no disponible'}
+          </button>
+
+          {/* Información adicional */}
+          <div className="mt-4 pt-4 border-t border-gray-200">
+            <div className="flex flex-col gap-2 text-xs sm:text-sm text-gray-600">
+              <p className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                </svg>
+                Envío disponible
+              </p>
+              <p className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Compra segura
+              </p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </>
+);
 }
 
 export default PurchaseProduct;

@@ -40,7 +40,6 @@ function MyOrders() {
         }
       );
 
-      // 🔄 refrescar pedidos
       fetchOrders();
     } catch (error) {
       console.log(error);
@@ -49,7 +48,6 @@ function MyOrders() {
   };
 
   const handleStatusChange = async (orderId, newStatus) => {
-    // Evita la actualización si el estado es el mismo o si no se selecciona uno válido (opcional)
     if (!newStatus) return;
 
     try {
@@ -57,7 +55,7 @@ function MyOrders() {
 
       const response = await axios.put(
         `/api/orders/${orderId}/status`,
-        { status: newStatus }, // 👈 Envía el nuevo estado en el cuerpo
+        { status: newStatus },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,10 +63,8 @@ function MyOrders() {
         }
       );
 
-      // Muestra un mensaje de éxito (opcional)
       console.log(response.data.msg);
 
-      // 🔄 Refrescar los pedidos para ver el cambio
       fetchOrders();
     } catch (error) {
       console.error("Error al actualizar el estado del pedido:", error);
@@ -78,74 +74,87 @@ function MyOrders() {
     }
   };
   return (
-    <main className="w-full py-15 px-20">
-      {/* CARDS CONTAINER */}
-      <div className="w-full p-10 flex flex-col gap-10 bg-white rounded-lg animate-fade-in animate-duration-400">
-        {orders.length === 0 ? (
-          <p>No has hecho ningún pedido</p>
-        ) : (
-          orders.map((order) => (
-            // CARDS
-            <div
-              key={order.id}
-              className="w-full flex items-center gap-20 p-6 bg-sky-200 rounded-2xl"
-            >
-              <h2 className="font-semibold text-lg">
+  <main className="w-full py-6 sm:py-10 md:py-15 px-4 sm:px-8 md:px-12 lg:px-20">
+    {/* CARDS CONTAINER */}
+    <div className="w-full p-4 sm:p-6 md:p-10 flex flex-col gap-6 sm:gap-8 md:gap-10 bg-white rounded-lg animate-fade-in animate-duration-400">
+      <h1 className="text-xl sm:text-2xl font-bold">Mis Órdenes</h1>
+      
+      {orders.length === 0 ? (
+        <div className="text-center py-10">
+          <p className="text-gray-500 text-base sm:text-lg">
+            No has hecho ningún pedido
+          </p>
+        </div>
+      ) : (
+        orders.map((order) => (
+          // CARDS
+          <div
+            key={order.id}
+            className="w-full flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 md:gap-10 lg:gap-20 p-4 sm:p-6 bg-sky-200 rounded-xl sm:rounded-2xl"
+          >
+            {/* ID del pedido */}
+            <div className="shrink-0">
+              <h2 className="font-semibold text-base sm:text-lg">
                 Pedido #{order.id.slice(0, 8)}
               </h2>
-              {/* {order.items.map((item) => (
-                <div
-                  key={item.id}
-                  className="ml-4 mt-2 w-120 flex justify-between items-center"
-                >
-                  <img src={item.product.images} alt="" className="w-20" />
-                  <h2>
-                    {" "}
-                    <span className="font-semibold">{item.product.name}</span>
-                  </h2>
-                  <span>Cant: {item.amount}</span>
-                </div>
-              ))} */}
-              <h2>
-                a nombre de <span className="font-semibold">{order.name}</span>
-              </h2>
+            </div>
 
-              {isAdmin ? (
-                <>
-                  <select
-                    name="status"
-                    id=""
-                    value={order.status}
-                    onChange={(e) =>
-                      handleStatusChange(order.id, e.target.value)
-                    }
-                  >
-                    <option value="">{order.status}</option>
-                    <option value="enviado">Enviado</option>
-                    <option value="cancelado">Cancelar</option>
-                  </select>
-                </>
-              ) : (
-                <>
-                  <h2>
-                    Estado <span className="font-semibold">{order.status}</span>
-                  </h2>
-                </>
-              )}
-              {order.status === "pendiente" && (
+            {/* Nombre del cliente */}
+            <div className="flex-1">
+              <h2 className="text-sm sm:text-base">
+                A nombre de <span className="font-semibold">{order.name}</span>
+              </h2>
+            </div>
+
+            {/* Estado - Admin o Cliente */}
+            {isAdmin ? (
+              <div className="w-full sm:w-auto">
+                <select
+                  name="status"
+                  value={order.status}
+                  onChange={(e) =>
+                    handleStatusChange(order.id, e.target.value)
+                  }
+                  className="w-full sm:w-40 h-10 px-3 rounded-lg border border-sky-600 bg-white text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-sky-500"
+                >
+                  <option value={order.status}>{order.status}</option>
+                  <option value="enviado">Enviado</option>
+                  <option value="cancelado">Cancelar</option>
+                </select>
+              </div>
+            ) : (
+              <div className="shrink-0">
+                <h2 className="text-sm sm:text-base">
+                  Estado:{" "}
+                  <span className={`font-semibold ${
+                    order.status === "pendiente" ? "text-yellow-600" :
+                    order.status === "enviado" ? "text-green-600" :
+                    order.status === "cancelado" ? "text-red-600" : ""
+                  }`}>
+                    {order.status}
+                  </span>
+                </h2>
+              </div>
+            )}
+
+            {/* Botón cancelar */}
+            {order.status === "pendiente" && (
+              <div className="w-full sm:w-auto">
                 <button
                   onClick={() => cancelOrder(order.id)}
-                  className="w-40 h-10 bg-red-600 text-white font-semibold rounded-2xl hover:bg-red-700"
+                  className="w-full sm:w-40 h-10 bg-red-600 text-white font-semibold rounded-lg hover:bg-red-700 transition-colors text-sm sm:text-base"
                 >
                   Cancelar
                 </button>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </main>
-  );
+              </div>
+            )}
+          </div>
+        ))
+      )}
+
+    </div>
+  </main>
+);
 }
 
 export default MyOrders;

@@ -55,22 +55,26 @@ function AdminProductsCards() {
   };
   return (
     <>
-      <div className="w-full flex gap-10 flex-wrap py-10 px-20 justify-center">
+      <div className="w-full min-h-screen flex gap-6 sm:gap-8 md:gap-10 flex-wrap py-6 sm:py-8 md:py-10 px-4 sm:px-8 md:px-12 lg:px-20 justify-center">
         {products.length === 0 ? (
-          <>
-            <p>no tienes productos</p>{" "}
+          <div className="w-full flex flex-col items-center gap-6 py-20">
+            <p className="text-lg sm:text-xl text-gray-600">
+              No tienes productos creados
+            </p>
             <Link to={"/"}>
-              <h1>Crear</h1>
-            </Link>{" "}
-          </>
+              <button className="px-6 py-3 bg-sky-600 text-white rounded-lg font-semibold hover:bg-sky-700 transition-colors">
+                Crear primer producto
+              </button>
+            </Link>
+          </div>
         ) : (
           products.map((pro) => (
-            
             <div
               key={pro.id}
-              className=" w-90  h-120 hover:scale-103 transition-transform duration-300  flex flex-col gap-2 rounded-lg bg-white text-sm shadow-[10px_15px_15px_rgba(0,0,0,.1)] animate-fade-in animate-duration-400"
+              className="w-full sm:w-80 md:w-90 h-auto hover:scale-103 transition-transform duration-300 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-lg hover:shadow-xl animate-fade-in animate-duration-400"
             >
-              <div className="w-full h-60 rounded-t-lg overflow-hidden ">
+              {/* Imagen del producto */}
+              <div className="w-full h-48 sm:h-56 md:h-60 rounded-t-lg overflow-hidden">
                 {pro.productImages && pro.productImages.length > 0 ? (
                   (() => {
                     const raw = pro.productImages[0].url;
@@ -92,41 +96,52 @@ function AdminProductsCards() {
                       <img
                         src={pro.images}
                         alt={pro.name}
-                        className="w-full h-60 object-cover"
+                        className="w-full h-full object-cover"
                       />
                     ) : (
-                      <div className="w-full h-60 bg-sky-600"></div>
+                      <div className="w-full h-full bg-sky-600 flex items-center justify-center">
+                        <span className="text-white text-sm">Sin imagen</span>
+                      </div>
                     );
                   })()
                 ) : (
-                  <div className="w-full h-60 bg-sky-600"></div>
+                  <div className="w-full h-full bg-sky-600 flex items-center justify-center">
+                    <span className="text-white text-sm">Sin imagen</span>
+                  </div>
                 )}
               </div>
-              <div className="flex flex-col py-5 pr-5 gap-2 w-full p-10">
-                <h1 className="text-xl font-semibold wrap-break-word">
+
+              {/* Información del producto */}
+              <div className="flex flex-col p-4 sm:p-5 gap-2 w-full">
+                <h1 className="text-lg sm:text-xl font-semibold break-words line-clamp-2">
                   {pro.name}
                 </h1>
 
-                <p className="">
-                  <span className="font-semibold">Precio: </span>
-                  {formatCOP(pro.price)}
-                </p>
-                <p className="">
-                  <span className="font-semibold">Stock: </span> {pro.stock}
-                </p>
-                <p className=" pb-5">
-                  <span className="font-semibold">Categoria: </span>
-                  {pro.category.name}
-                </p>
-                <div className="w-full flex gap-6 ">
-                  <Link to={`/editProduct/${pro.id}`}>
-                    <button className="w-30  h-8 rounded-lg bg-sky-600 text-white">
+                <div className="flex flex-col gap-1 text-sm sm:text-base">
+                  <p>
+                    <span className="font-semibold">Precio: </span>
+                    {formatCOP(pro.price)}
+                  </p>
+                  <p>
+                    <span className="font-semibold">Stock: </span>
+                    {pro.stock}
+                  </p>
+                  <p className="pb-3">
+                    <span className="font-semibold">Categoría: </span>
+                    {pro.category.name}
+                  </p>
+                </div>
+
+                {/* Botones de acción */}
+                <div className="w-full flex flex-col sm:flex-row gap-3 sm:gap-4 mt-2">
+                  <Link to={`/editProduct/${pro.id}`} className="flex-1">
+                    <button className="w-full h-9 sm:h-10 rounded-lg bg-sky-600 text-white font-medium hover:bg-sky-700 transition-colors text-sm sm:text-base">
                       Editar
                     </button>
                   </Link>
                   <button
                     onClick={() => deleteProduct(pro)}
-                    className="w-30  h-8 rounded-lg bg-red-500 text-white"
+                    className="flex-1 h-9 sm:h-10 rounded-lg bg-red-500 text-white font-medium hover:bg-red-600 transition-colors text-sm sm:text-base"
                   >
                     Eliminar
                   </button>
@@ -135,8 +150,6 @@ function AdminProductsCards() {
             </div>
           ))
         )}
-
-        {/*tengo que poner una carta para crear productos*/}
       </div>
     </>
   );
