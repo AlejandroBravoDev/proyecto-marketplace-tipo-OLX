@@ -69,6 +69,7 @@ const getCart = async (req, res) => {
 
     if (!cart) {
       return res.status(200).json({
+        id: null, // Agregar esto
         items: [],
         total: 0,
         totalAmount: 0,
@@ -105,6 +106,7 @@ const getCart = async (req, res) => {
     const totalAmount = mapped.reduce((s, it) => s + it.amount, 0);
 
     return res.status(200).json({
+      id: cart.id, // ⬅️ AGREGAR ESTA LÍNEA
       items: mapped,
       total,
       totalAmount,

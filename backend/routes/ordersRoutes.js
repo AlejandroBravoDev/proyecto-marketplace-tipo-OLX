@@ -1,14 +1,14 @@
 import express from "express";
-import { 
-    createOrder, 
-    getOrderByUserId, 
-    cancelOrder,
-    updateOrderStatus, 
-    getAllOrders,
-    // 💡 Importar validaciones
-    createOrderValidations,
-    cancelOrderValidations,
-    updateOrderStatusValidations
+import {
+  createOrder,
+  getOrderByUserId,
+  cancelOrder,
+  updateOrderStatus,
+  getAllOrders,
+  // 💡 Importar validaciones
+  createOrderValidations,
+  cancelOrderValidations,
+  updateOrderStatusValidations,
 } from "../controllers/orderController.js";
 import isAdmin from "../middlewares/isAdmin.js";
 import verifyToken from "../middlewares/auth.js";
@@ -21,11 +21,22 @@ router.post("/", verifyToken, createOrderValidations, createOrder);
 router.get("/", verifyToken, getOrderByUserId);
 
 // Validar :orderId
-router.put("/:orderId/cancel", verifyToken, cancelOrderValidations, cancelOrder);
+router.put(
+  "/:orderId/cancel",
+  verifyToken,
+  cancelOrderValidations,
+  cancelOrder
+);
 
-router.get("/", verifyToken, isAdmin, getAllOrders) // Nota: Agregué verifyToken aquí por seguridad, ya que isAdmin lo requiere
+router.get("/all", verifyToken, isAdmin, getAllOrders); // Nota: Agregué verifyToken aquí por seguridad, ya que isAdmin lo requiere
 
 // Validar :orderId y el campo 'status'
-router.put("/:orderId/status", verifyToken, isAdmin, updateOrderStatusValidations, updateOrderStatus);
+router.put(
+  "/:orderId/status",
+  verifyToken,
+  isAdmin,
+  updateOrderStatusValidations,
+  updateOrderStatus
+);
 
 export default router;

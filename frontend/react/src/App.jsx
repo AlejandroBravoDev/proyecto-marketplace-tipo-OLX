@@ -21,7 +21,7 @@ function Rutas() {
       <Route path="/forgotPassword" element={<ForgotPassword />} />
       <Route path="/resetPassword/:token" element={<ResetPassword />} />
       <Route path="/purchaseProduct/:id" element={<PurchaseProductPage/>}/>
-      <Route path="/cart/:id" element={<CartPage/>}/>
+      <Route path="/cart/:cartId" element={<CartPage/>}/>
       <Route path="/myOrders" element={<MyOrdersPage/>}/>
 
 

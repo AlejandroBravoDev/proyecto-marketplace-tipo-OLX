@@ -71,7 +71,7 @@ function AdminProductsCards() {
           products.map((pro) => (
             <div
               key={pro.id}
-              className="w-full sm:w-80 md:w-90 h-auto hover:scale-103 transition-transform duration-300 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-lg hover:shadow-xl animate-fade-in animate-duration-400"
+              className="w-full sm:w-80 md:w-90 h-120 hover:scale-103 transition-transform duration-300 flex flex-col gap-2 rounded-lg bg-white text-sm shadow-lg hover:shadow-xl animate-fade-in animate-duration-400"
             >
               {/* Imagen del producto */}
               <div className="w-full h-48 sm:h-56 md:h-60 rounded-t-lg overflow-hidden">
@@ -113,7 +113,7 @@ function AdminProductsCards() {
 
               {/* Información del producto */}
               <div className="flex flex-col p-4 sm:p-5 gap-2 w-full">
-                <h1 className="text-lg sm:text-xl font-semibold break-words line-clamp-2">
+                <h1 className="text-lg sm:text-xl font-semibold wrap-break-word line-clamp-2">
                   {pro.name}
                 </h1>
 

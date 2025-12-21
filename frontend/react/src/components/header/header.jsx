@@ -2,19 +2,51 @@ import logo from "../../assets/logoParche.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { logout } from "../../services/authService";
-import { Search } from "lucide-react";
-import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Search, ShoppingCart, Menu, X } from "lucide-react";
+import { useState, useEffect } from "react";
+
 function Header() {
   const { user, isAuthenticated, isAdmin } = useAuth();
   const navigate = useNavigate();
-  const [search, setSearch] = useState();
+  const [search, setSearch] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [cartId, setCartId] = useState(null);
+
+  // Obtener el carrito del usuario
+ // En el useEffect del Header
+useEffect(() => {
+  const fetchCart = async () => {
+    if (!isAuthenticated || !user) return;
+
+    try {
+      const response = await fetch("/api/cart/", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      console.log('Response status:', response.status); 
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Cart data:', data); 
+        setCartId(data.id);
+        const totalItems = data.items?.reduce((sum, item) => sum + item.amount, 0) || 0;
+        setCartItemsCount(totalItems);
+      }
+    } catch (error) {
+      console.error("Error al obtener el carrito:", error);
+    }
+  };
+
+  fetchCart();
+}, [isAuthenticated, user]);
 
   const handleLogout = () => {
     logout();
     navigate("/login");
-    window.location.reload;
+    window.location.reload();
   };
 
   const handleSelectChange = (e) => {
@@ -24,20 +56,29 @@ function Header() {
     }
   };
 
+  const handleCartClick = () => {
+    if (cartId) {
+      navigate(`/cart/${cartId}`);
+    } else {
+      // Si no hay cartId, intenta obtenerlo primero o navega a /cart
+      navigate("/cart");
+    }
+  };
+
   return (
     <>
-      <nav className="w-full bg-sky-600 animate-slide-in-top animate-duration-400">
+      <nav className="w-full bg-white animate-slide-in-top animate-duration-400">
         {/* Desktop Navbar */}
         <div className="hidden lg:flex h-20 items-center px-6 xl:px-20 justify-between">
           <Link to="/">
-            <h2 className="text-xl xl:text-2xl font-bold text-white">
-              Parche <span className="text-[#1d007c]">Market</span>
+            <h2 className="text-xl xl:text-2xl font-bold text-sky-600">
+              ParcheMarket
             </h2>
           </Link>
 
           <div className="flex flex-row gap-4 xl:gap-10 items-center">
             {/* Buscador */}
-            <div className="flex flex-row">
+            <div className="flex flex-row border border-sky-600 rounded-4xl">
               <input
                 type="text"
                 className="bg-white h-10 rounded-l-4xl w-60 xl:w-80 px-5 text-sm focus:outline-none"
@@ -59,6 +100,21 @@ function Header() {
                 <Search />
               </button>
             </div>
+
+            {/* Carrito - Solo para usuarios autenticados y no admin */}
+            {isAuthenticated && !isAdmin && (
+              <button
+                onClick={handleCartClick}
+                className="relative p-2 text-white hover:bg-sky-700 rounded-full transition-colors"
+              >
+                <ShoppingCart size={24} />
+                {cartItemsCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                    {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                  </span>
+                )}
+              </button>
+            )}
 
             {/* Botones según estado de autenticación */}
             {!isAuthenticated ? (
@@ -126,12 +182,29 @@ function Header() {
               </h2>
             </Link>
 
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="text-white p-2"
-            >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            <div className="flex items-center gap-3">
+              {/* Carrito móvil - Solo para usuarios autenticados y no admin */}
+              {isAuthenticated && !isAdmin && (
+                <button
+                  onClick={handleCartClick}
+                  className="relative p-2 text-white"
+                >
+                  <ShoppingCart size={24} />
+                  {cartItemsCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {cartItemsCount > 99 ? "99+" : cartItemsCount}
+                    </span>
+                  )}
+                </button>
+              )}
+
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="text-white p-2"
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu */}

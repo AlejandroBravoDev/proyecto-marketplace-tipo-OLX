@@ -88,7 +88,7 @@ function ProductsCards({ products }) {
 
               {/* Información del producto */}
               <div className="flex flex-col p-4 sm:p-6 md:p-8 gap-2 w-full">
-                <h1 className="text-lg sm:text-xl font-semibold break-words line-clamp-2 mb-2">
+                <h1 className="text-lg sm:text-xl font-semibold wrap-break-word line-clamp-2 mb-2">
                   {pro.name}
                 </h1>
 
