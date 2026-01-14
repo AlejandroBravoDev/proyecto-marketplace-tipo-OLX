@@ -31,11 +31,11 @@ function CategoriesNav({ onSelectCategory }) {
 
   return (
     <>
-      <nav className="w-full bg-sky-600 mt-6 sm:mt-8 md:mt-10 animate-slide-in-top animate-duration-400">
+      <nav className="w-full h-10 bg-white  sm:mt-8 md:mt-10 animate-slide-in-top animate-duration-400">
         {/* Desktop */}
-        <ul className="hidden lg:flex w-full h-15 flex-row justify-between items-center px-6 md:px-12 lg:px-20 text-white">
+        <ul className="hidden lg:flex w-full h-10 flex-row justify-between items-center px-10 md:px-12 lg:px-20 text-sky-600">
           <Link to="/">
-            <li className="hover:bg-sky-700 px-4 py-2 rounded transition-colors cursor-pointer">
+            <li className="cursor-pointer hover:bg-sky-600 hover:text-white px-4 py-0.5 rounded-sm transition-colors duration-400">
               Ver todos
             </li>
           </Link>
@@ -45,7 +45,7 @@ function CategoriesNav({ onSelectCategory }) {
             categories.map((cat) => (
               <li
                 onClick={() => onSelectCategory(cat.id)}
-                className="cursor-pointer hover:bg-sky-700 px-4 py-2 rounded transition-colors"
+                className="cursor-pointer hover:bg-sky-600 hover:text-white px-4 py-0.5 rounded-sm transition-colors duration-400"
                 key={cat.id}
               >
                 {cat.name}

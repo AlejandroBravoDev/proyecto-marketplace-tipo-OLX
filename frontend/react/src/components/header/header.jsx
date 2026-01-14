@@ -91,7 +91,7 @@ useEffect(() => {
                 }}
               />
               <button
-                className="bg-white h-10 rounded-r-4xl pr-5 hover:bg-gray-100 transition-colors"
+                className="bg-white text-sky-600 h-10 rounded-r-4xl pr-5 hover:bg-gray-100 transition-colors"
                 onClick={() => {
                   if (!search.trim()) return;
                   navigate(`/?search=${encodeURIComponent(search)}`);
@@ -105,7 +105,7 @@ useEffect(() => {
             {isAuthenticated && !isAdmin && (
               <button
                 onClick={handleCartClick}
-                className="relative p-2 text-white hover:bg-sky-700 rounded-full transition-colors"
+                className="relative p-2 text-sky-600 hover:bg-sky-700 rounded-full transition-colors"
               >
                 <ShoppingCart size={24} />
                 {cartItemsCount > 0 && (
@@ -120,25 +120,25 @@ useEffect(() => {
             {!isAuthenticated ? (
               <div className="flex flex-row gap-4 xl:gap-10">
                 <Link to={"/login"}>
-                  <button className="w-32 xl:w-35 h-10 border border-white rounded-4xl text-white hover:bg-sky-700 transition-colors text-sm xl:text-base">
+                  <button className="w-32 xl:w-35 h-10 rounded-4xl border border-sky-600 text-sky-600 bg-white hover:bg-sky-600 hover:text-white transition-colors duration-400  text-sm xl:text-base">
                     Iniciar Sesión
                   </button>
                 </Link>
                 <Link to={"/register"}>
-                  <button className="w-32 xl:w-35 h-10 rounded-4xl text-sky-600 bg-white hover:bg-gray-100 transition-colors text-sm xl:text-base">
+                  <button className="w-32 xl:w-35 h-10 rounded-4xl border border-sky-600 text-sky-600 bg-white hover:bg-sky-600 hover:text-white transition-colors duration-400 text-sm xl:text-base">
                     Registrarse
                   </button>
                 </Link>
               </div>
             ) : isAdmin ? (
               <div className="flex flex-row gap-4 xl:gap-10 items-center">
-                <h2 className="font-semibold text-white text-sm xl:text-base">
+                <h2 className="font-semibold text-sky-600  text-sm xl:text-base">
                   ¡Bienvenido!{" "}
-                  <span className="text-[#1d007c]">{user?.name}</span>
+                  <span className="text-sky-600">{user?.name}</span>
                 </h2>
                 <select
                   onChange={handleSelectChange}
-                  className="text-white bg-sky-600 rounded-4xl border border-white h-10 w-36 xl:w-40 px-4 text-sm xl:text-base focus:outline-none hover:bg-sky-700 transition-colors"
+                  className="text-sky-600 bg-white border border-sky-600 rounded-4xl h-10 w-36 xl:w-40 pl-4  text-sm xl:text-base focus:outline-none hover:bg-sky-600 hover:text-white   transition-colors duration-400"
                 >
                   <option value="/">Admin</option>
                   <option value="/adminProducts">Productos</option>
@@ -154,11 +154,11 @@ useEffect(() => {
               </div>
             ) : (
               <div className="flex flex-row gap-4 xl:gap-10 items-center">
-                <h2 className="font-semibold text-white text-sm xl:text-base">
+                <h2 className="font-semibold text-sky-600 text-sm xl:text-base">
                   ¡Bienvenido! {user?.name}
                 </h2>
                 <Link to={"/perfil"}>
-                  <button className="w-32 xl:w-35 h-10 rounded-4xl text-sky-600 bg-white hover:bg-gray-100 transition-colors text-sm xl:text-base">
+                  <button className="w-32 xl:w-35 h-10 rounded-4xl border border-sky-600 text-sky-600 bg-white hover:bg-sky-600 hover:text-white transition-colors duration-400 text-sm xl:text-base">
                     Perfil
                   </button>
                 </Link>

@@ -17,12 +17,12 @@ function ProductsCards({ products }) {
   };
   return (
     <>
-      <div className="w-full flex gap-6 sm:gap-8 md:gap-10 flex-wrap py-6 sm:py-8 md:py-10 px-4 sm:px-8 md:px-12 lg:px-20 items-center justify-center animate-fade-in animate-duration-400">
+      <div className="w-full flex gap-6 sm:gap-8 md:gap-10 flex-wrap py-10 sm:py-8 md:py-20 px-4 sm:px-8 md:px-12 lg:px-20 items-center justify-center animate-fade-in animate-duration-400">
         {/* Card para crear producto (solo admin) */}
         {isAdmin && (
           <Link to={"/createProducts"} className="w-full sm:w-80 md:w-90">
             <div className="w-full h-96 sm:h-110 md:h-120 flex flex-col justify-center items-center gap-4 sm:gap-5 border-2 border-sky-600 border-dashed rounded-lg bg-white text-sm shadow-lg hover:shadow-xl hover:scale-102 transition-all duration-300">
-              <div className="w-full h-full bg-[#04429817] flex flex-col justify-center items-center gap-4 sm:gap-5 rounded-lg">
+              <div className="w-full h-full bg-[#04429810] flex flex-col justify-center items-center gap-4 sm:gap-5 rounded-lg">
                 <h1 className="font-bold text-5xl sm:text-6xl text-sky-600">
                   +
                 </h1>
